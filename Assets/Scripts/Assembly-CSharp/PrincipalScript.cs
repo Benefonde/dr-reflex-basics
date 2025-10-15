@@ -152,9 +152,9 @@ public class PrincipalScript : MonoBehaviour
 			this.coolDown = 5f;
 			this.angry = false;
 			this.detentions++;
-			if (this.detentions > 4) // Prevent detention number from going above 4
+			if (this.detentions > 10) // Prevent detention number from going above 10
 			{
-				this.detentions = 4;
+				this.detentions = 10;
 			}
 		}
 	}
@@ -221,17 +221,23 @@ public class PrincipalScript : MonoBehaviour
 	private int[] lockTime = new int[]
 	{
 		15,
+		20,
+		25,
 		30,
+		35,
+		40,
 		45,
+		50,
+		55,
 		60,
 		99
 	};
 
 	// Token: 0x040006C8 RID: 1736
-	public AudioClip[] audTimes = new AudioClip[5];
+	public AudioClip[] audTimes = new AudioClip[11];
 
 	// Token: 0x040006C9 RID: 1737
-	public AudioClip[] audScolds = new AudioClip[3];
+	public AudioClip[] audScolds = new AudioClip[4];
 
 	// Token: 0x040006CA RID: 1738
 	public AudioClip audDetention;

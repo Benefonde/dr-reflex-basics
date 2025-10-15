@@ -20,10 +20,22 @@ public class FirstPrizeSpriteScript : MonoBehaviour
 		}
 		this.debug = this.body.eulerAngles.y;
 		this.angleF += this.body.eulerAngles.y;
-		this.angle = Mathf.RoundToInt(this.angleF / 22.5f);
-		while (this.angle < 0 || this.angle >= 16)
+		angleF += Mathf.RoundToInt(offset);
+		if (eightAngles)
 		{
-			this.angle += (int)(-16f * Mathf.Sign((float)this.angle));
+			this.angle = Mathf.RoundToInt(this.angleF / 45f);
+			while (this.angle < 0 || this.angle >= 8)
+			{
+				this.angle += (int)(-8f * Mathf.Sign((float)this.angle));
+			}
+		}
+        else
+		{
+			this.angle = Mathf.RoundToInt(this.angleF / 22.5f);
+			while (this.angle < 0 || this.angle >= 16)
+			{
+				this.angle += (int)(-16f * Mathf.Sign((float)this.angle));
+			}
 		}
 		this.sprite.sprite = this.sprites[this.angle];
 	}
@@ -48,4 +60,8 @@ public class FirstPrizeSpriteScript : MonoBehaviour
 
 	// Token: 0x040006B7 RID: 1719
 	public Sprite[] sprites = new Sprite[16];
+
+	public bool eightAngles;
+
+	public float offset;
 }
