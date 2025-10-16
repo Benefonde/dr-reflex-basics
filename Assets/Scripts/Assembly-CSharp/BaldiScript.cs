@@ -21,14 +21,7 @@ public class BaldiScript : MonoBehaviour
 	// Token: 0x060009A4 RID: 2468 RVA: 0x000245C4 File Offset: 0x000229C4
 	private void Update()
 	{
-		if (this.timeToMove > 0f) //If timeToMove is greater then 0, decrease it
-		{
-			this.timeToMove -= 1f * Time.deltaTime;
-		}
-		else
-		{
-			this.Move(); //Start moving
-		}
+		Move();
 		if (this.coolDown > 0f) //If coolDown is greater then 0, decrease it
 		{
 			this.coolDown -= 1f * Time.deltaTime;
@@ -62,26 +55,35 @@ public class BaldiScript : MonoBehaviour
 				this.angerRate += this.angerRateRate; //Increase angerRate for next time
 			}
 		}
+
+		if (resetAnger)
+        {
+			GetAngry(0);
+			resetAnger = false;
+        }
 	}
 
 	// Token: 0x060009A5 RID: 2469 RVA: 0x000246F8 File Offset: 0x00022AF8
 	private void FixedUpdate()
 	{
-		if (this.moveFrames > 0f) //Move for a certain amount of frames, and then stop moving.(Ruler slapping)
+		float angleDifference = Mathf.DeltaAngle(base.transform.eulerAngles.y, Mathf.Atan2(player.position.x - base.transform.position.x, player.position.z - base.transform.position.z) * 57.29578f);
+		print(angleDifference);
+		if (angleDifference < 100 && angleDifference > -100)
 		{
-			this.moveFrames -= 1f;
-			this.agent.speed = this.speed;
-		}
-		else
-		{
-			this.agent.speed = 0f;
-		}
-		Vector3 direction = this.player.position - base.transform.position; 
-		RaycastHit raycastHit;
-		if (Physics.Raycast(base.transform.position + Vector3.up * 2f, direction, out raycastHit, float.PositiveInfinity, 769, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player") //Create a raycast, if the raycast hits the player, Baldi can see the player
-		{
-			this.db = true;
-			this.TargetPlayer(); //Start attacking the player
+			Vector3 direction = player.position - transform.position;
+			Physics.Raycast(base.transform.position + Vector3.up * 3f, direction, out RaycastHit raycastHit, float.PositiveInfinity, 769, QueryTriggerInteraction.Ignore);
+			if (raycastHit.transform != null)
+			{
+				if (raycastHit.transform.tag == "Player") //Create a raycast, if the raycast hits the player, Baldi can see the player
+				{
+					this.db = true;
+					this.TargetPlayer(); //Start attacking the player
+				}
+				else
+				{
+					this.db = false;
+				}
+			}
 		}
 		else
 		{
@@ -109,23 +111,19 @@ public class BaldiScript : MonoBehaviour
 	// Token: 0x060009A8 RID: 2472 RVA: 0x0002483C File Offset: 0x00022C3C
 	private void Move()
 	{
+		if (baldiWait > 0)
+        {
+			agent.speed = 0;
+			baldiWait -= Time.deltaTime;
+			return;
+		}
+		speed = 8 + (baldiAnger * (baldiAnger * baldiSpeedScale)) + baldiTempAnger * 3;
+		agent.speed = speed;
 		if (base.transform.position == this.previous & this.coolDown < 0f) // If Baldi reached his destination, start wandering
 		{
 			this.Wander();
 		}
-		this.moveFrames = 10f;
-		this.timeToMove = this.baldiWait - this.baldiTempAnger;
 		this.previous = base.transform.position; // Set previous to Baldi's current location
-		this.baldiAudio.PlayOneShot(this.slap); //Play the slap sound
-		this.baldiAnimator.SetTrigger("slap"); // Play the slap animation
-		if (this.rumble)
-		{
-			float num = Vector3.Distance(base.transform.position, this.player.position);
-			if (num < this.vibrationDistance)
-			{
-				float motorLevel = 1f - num / this.vibrationDistance;
-			}
-		}
 	}
 
 	// Token: 0x060009A9 RID: 2473 RVA: 0x00024930 File Offset: 0x00022D30
@@ -136,7 +134,6 @@ public class BaldiScript : MonoBehaviour
 		{
 			this.baldiAnger = 0.5f;
 		}
-		this.baldiWait = -3f * this.baldiAnger / (this.baldiAnger + 2f / this.baldiSpeedScale) + 3f; //Some formula I don't understand.
 	}
 
 	// Token: 0x060009AA RID: 2474 RVA: 0x00024992 File Offset: 0x00022D92
@@ -162,6 +159,16 @@ public class BaldiScript : MonoBehaviour
 		this.antiHearing = true; //Set the antihearing variable to true for other scripts
 		this.antiHearingTime = t; //Set the time the tape's effect on baldi will last
 	}
+
+	public void Stun(float time, float angerRollBack = 0)
+    {
+		baldiAudio.PlayOneShot(boink);
+		if (baldiWait <= 0)
+        {
+			baldiAudio.PlayOneShot(whoops);
+        }
+		baldiWait += time;
+    }
 
 	// Token: 0x0400067F RID: 1663
 	public bool db;
@@ -230,10 +237,10 @@ public class BaldiScript : MonoBehaviour
 	private AudioSource baldiAudio;
 
 	// Token: 0x04000695 RID: 1685
-	public AudioClip slap;
+	public AudioClip slap, whoops, boink;
 
 	// Token: 0x04000696 RID: 1686
-	public AudioClip[] speech = new AudioClip[3];
+	public AudioClip[] speech;
 
 	// Token: 0x04000697 RID: 1687
 	public Animator baldiAnimator;
@@ -250,4 +257,5 @@ public class BaldiScript : MonoBehaviour
 	// Token: 0x0400069B RID: 1691
 	private NavMeshAgent agent;
 
+	public bool resetAnger;
 }

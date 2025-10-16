@@ -12,11 +12,6 @@ public class MathGameScript : MonoBehaviour
     private void Start()
     {
         this.gc.ActivateLearningGame();
-        if (this.gc.notebooks == 1)
-        {
-            this.QueueAudio(this.bal_intro);
-            this.QueueAudio(this.bal_howto);
-        }
         this.NewProblem();
         if (this.gc.spoopMode)
         {
@@ -27,18 +22,6 @@ public class MathGameScript : MonoBehaviour
     // Token: 0x06000983 RID: 2435 RVA: 0x00023270 File Offset: 0x00021670
     private void Update()
     {
-        if (!this.baldiAudio.isPlaying)
-        {
-            if (this.audioInQueue > 0 & !this.gc.spoopMode)
-            {
-                this.PlayQueue();
-            }
-            this.baldiFeed.SetBool("talking", false);
-        }
-        else
-        {
-            this.baldiFeed.SetBool("talking", true);
-        }
         if ((Input.GetKeyDown("return") || Input.GetKeyDown("enter")) & this.questionInProgress)
         {
             this.questionInProgress = false;
@@ -51,6 +34,10 @@ public class MathGameScript : MonoBehaviour
             {
                 GC.Collect();
                 this.ExitGame();
+                if (baldiScript.endless && problemsWrong <= 0)
+                {
+                    baldiScript.Stun(0.2f * gc.notebooks);
+                }
             }
         }
     }
