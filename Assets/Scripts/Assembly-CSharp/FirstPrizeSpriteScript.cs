@@ -40,7 +40,7 @@ public class FirstPrizeSpriteScript : MonoBehaviour
 		this.sprite.sprite = this.sprites[this.angle];
 		if (animationMode)
 		{
-			if (animFrame > animFrameLength - 1)
+			if (animFrame > animFrameLength)
             {
 				animFrame = 0;
             }

@@ -8,6 +8,7 @@ public class BaldiScript : MonoBehaviour
 	// Token: 0x060009A3 RID: 2467 RVA: 0x00024564 File Offset: 0x00022964
 	private void Start()
 	{
+		runItBack = 1;
 		this.baldiAudio = base.GetComponent<AudioSource>(); //Get The Baldi Audio Source(Used mostly for the slap sound)
 		this.agent = base.GetComponent<NavMeshAgent>(); //Get the Nav Mesh Agent
 		this.timeToMove = this.baseTime; //Sets timeToMove to baseTime
@@ -48,6 +49,9 @@ public class BaldiScript : MonoBehaviour
         }
         else
 		{
+			runItBack = 1;
+			fpss.animFrame = 0;
+			hammerFpss.animFrame = 1;
 			fpss.gameObject.SetActive(false);
 			hammerFpss.gameObject.SetActive(true);
 			baldiAudio.PlayOneShot(slap);
@@ -75,12 +79,51 @@ public class BaldiScript : MonoBehaviour
 				this.angerRate += this.angerRateRate; //Increase angerRate for next time
 			}
 		}
+		Animate();
 #if UNITY_EDITOR
 		if (Input.GetKeyDown(KeyCode.F2))
-        {
+		{
 			Stun(1);
-        }
+		}
 #endif
+	}
+
+	void Animate()
+	{
+		if (animDelay > 0)
+		{
+			animDelay -= Time.deltaTime;
+			return;
+		}
+		animDelay = animDelaySet;
+		if (fpss.gameObject.activeSelf)
+		{
+			fpss.animFrame += runItBack;
+			if (fpss.animFrame <= 0 && runItBack == -1)
+			{
+				runItBack = 1;
+			}
+			if (fpss.animFrame >= fpss.animFrameLength - 1 && runItBack == 1)
+			{
+				runItBack = -1;
+			}
+		}
+		if (hammerFpss.gameObject.activeSelf)
+		{
+			hammerFpss.animFrame += runItBack;
+			if (hammerFpss.animFrame >= hammerFpss.animFrameLength - 1 && runItBack == 1)
+			{
+				runItBack = -1;
+			}
+			if (hammerFpss.animFrame <= 0 && runItBack == -1)
+			{
+				runItBack = 1;
+				fpss.animFrame = 0;
+				hammerFpss.animFrame = 1;
+				fpss.gameObject.SetActive(true);
+				hammerFpss.gameObject.SetActive(false);
+			}
+		}
 	}
 
 	// Token: 0x060009A5 RID: 2469 RVA: 0x000246F8 File Offset: 0x00022AF8
@@ -108,32 +151,6 @@ public class BaldiScript : MonoBehaviour
 		else
 		{
 			this.db = false;
-		}
-
-		if (fpss.isActiveAndEnabled)
-		{
-			if (delay <= 1)
-			{
-				delay++;
-				return;
-			}
-			delay = 0;
-			fpss.animFrame++;
-        }
-        else
-		{
-			if (delay <= 1)
-            {
-				delay++;
-				return;
-            }
-			delay = 0;
-			hammerFpss.animFrame++;
-			if (hammerFpss.animFrame == hammerFpss.animFrameLength)
-            {
-				fpss.gameObject.SetActive(true);
-				hammerFpss.gameObject.SetActive(false);
-            }
 		}
 	}
 
@@ -166,7 +183,8 @@ public class BaldiScript : MonoBehaviour
 		if (stunned)
         {
 			stunned = false;
-			GetComponentInChildren<SpriteRenderer>().color = Color.white;
+			sprites[0].color = Color.white;
+			sprites[1].color = Color.white;
 		}
 		speed = 8 + ((baldiAnger * (baldiAnger * baldiSpeedScale)) / 1.5f) + baldiTempAnger * 3;
 		agent.speed = speed;
@@ -216,12 +234,12 @@ public class BaldiScript : MonoBehaviour
 		baldiAudio.PlayOneShot(boink);
 		bangTime += time;
 		stunned = true;
-		GetComponentInChildren<SpriteRenderer>().color = Color.white - (Color.black * 0.25f);
 		if (baldiWait <= 0)
         {
 			baldiAudio.PlayOneShot(whoops);
 		}
-		GetComponentInChildren<SpriteRenderer>().color = Color.white - (Color.black * 0.35f);
+		sprites[0].color = Color.white - (Color.black * 0.35f);
+		sprites[1].color = Color.white - (Color.black * 0.35f);
 		baldiWait += time; 
 		baldiAnger -= angerRollBack;
 		angerRate -= angerRateRate * angerRollBack;
@@ -319,5 +337,10 @@ public class BaldiScript : MonoBehaviour
 
 	public FirstPrizeSpriteScript fpss, hammerFpss;
 
-	int delay;
+	public float animDelaySet = 1/24;
+	float animDelay;
+
+	sbyte runItBack;
+
+	public SpriteRenderer[] sprites;
 }
