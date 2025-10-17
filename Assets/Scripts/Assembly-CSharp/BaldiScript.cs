@@ -51,7 +51,7 @@ public class BaldiScript : MonoBehaviour
 		{
 			runItBack = 1;
 			fpss.animFrame = 0;
-			hammerFpss.animFrame = 1;
+			hammerFpss.animFrame = 0;
 			fpss.gameObject.SetActive(false);
 			hammerFpss.gameObject.SetActive(true);
 			baldiAudio.PlayOneShot(slap);
@@ -63,7 +63,7 @@ public class BaldiScript : MonoBehaviour
 			if (time < 0.2f)
             {
 				time = 0.2f;
-            }
+			}
 			bangTime = UnityEngine.Random.Range(time / 10, time);
         }
 		if (this.endless) //Only activate if the player is playing on endless mode
@@ -114,6 +114,7 @@ public class BaldiScript : MonoBehaviour
 			if (hammerFpss.animFrame >= hammerFpss.animFrameLength - 1 && runItBack == 1)
 			{
 				runItBack = -1;
+				hammerFpss.animFrame--;
 			}
 			if (hammerFpss.animFrame <= 0 && runItBack == -1)
 			{
@@ -270,7 +271,7 @@ public class BaldiScript : MonoBehaviour
 	public float baldiSpeedScale;
 
 	// Token: 0x04000687 RID: 1671
-	private float moveFrames;
+	public float moveFrames;
 
 	// Token: 0x04000688 RID: 1672
 	private float currentPriority;

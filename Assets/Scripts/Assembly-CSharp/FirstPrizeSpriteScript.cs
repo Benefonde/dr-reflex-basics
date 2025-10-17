@@ -40,11 +40,11 @@ public class FirstPrizeSpriteScript : MonoBehaviour
 		this.sprite.sprite = this.sprites[this.angle];
 		if (animationMode)
 		{
-			if (animFrame > animFrameLength)
+			if (animFrame >= animFrameLength)
             {
 				animFrame = 0;
             }
-			this.sprite.sprite = this.sprites[animFrame + (animFrameLength * angle)]; // The script expects another script to increment "animFrame"
+			this.sprite.sprite = this.sprites[(animFrame + (animFrameLength * angle)) + animOffset]; // The script expects another script to increment "animFrame"
 		}
 	}
 
@@ -73,4 +73,5 @@ public class FirstPrizeSpriteScript : MonoBehaviour
 	public bool eightAngles, animationMode;
 
 	public float offset;
+	public int animOffset;
 }

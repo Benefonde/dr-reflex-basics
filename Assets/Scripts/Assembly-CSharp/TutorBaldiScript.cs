@@ -7,6 +7,7 @@ public class TutorBaldiScript : MonoBehaviour
 {
     private void Start()
     {
+        runItBack = 1;
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -37,13 +38,21 @@ public class TutorBaldiScript : MonoBehaviour
     {
         if (anger)
         {
-            if (delay <= 2)
+            if (delay <= 1)
             {
                 delay++;
                 return;
             }
-            fpss.animFrame++;
             delay = 0;
+            fpss.animFrame += runItBack;
+            if (fpss.animFrame <= 0 && runItBack == -1)
+            {
+                runItBack = 1;
+            }
+            if (fpss.animFrame >= fpss.animFrameLength - 1 && runItBack == 1)
+            {
+                runItBack = -1;
+            }
         }
     }
 
@@ -71,4 +80,5 @@ public class TutorBaldiScript : MonoBehaviour
     public FirstPrizeSpriteScript disableOnAngerFpss, fpss;
 
     int delay;
+    sbyte runItBack;
 }
