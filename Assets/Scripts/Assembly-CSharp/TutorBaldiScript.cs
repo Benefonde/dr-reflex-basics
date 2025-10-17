@@ -37,7 +37,13 @@ public class TutorBaldiScript : MonoBehaviour
     {
         if (anger)
         {
+            if (delay <= 2)
+            {
+                delay++;
+                return;
+            }
             fpss.animFrame++;
+            delay = 0;
         }
     }
 
@@ -63,4 +69,6 @@ public class TutorBaldiScript : MonoBehaviour
 
     public Transform baldi;
     public FirstPrizeSpriteScript disableOnAngerFpss, fpss;
+
+    int delay;
 }

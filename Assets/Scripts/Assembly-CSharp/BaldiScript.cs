@@ -47,8 +47,10 @@ public class BaldiScript : MonoBehaviour
 			bangTime -= Time.deltaTime;
         }
         else
-        {
-			baldiAnimator.SetTrigger("slap");
+		{
+			delay = 0;
+			fpss.gameObject.SetActive(false);
+			hammerFpss.gameObject.SetActive(true);
 			baldiAudio.PlayOneShot(slap);
 			float time = 4f / ((baldiAnger * 0.6f) - baldiTempAnger);
 			if (time > 5)
@@ -107,6 +109,32 @@ public class BaldiScript : MonoBehaviour
 		else
 		{
 			this.db = false;
+		}
+
+		if (fpss.isActiveAndEnabled)
+        {
+			if (delay <= 2)
+            {
+				delay++;
+				return;
+            }
+			fpss.animFrame++;
+			delay = 0;
+        }
+        else
+		{
+			if (delay <= 2)
+			{
+				delay++;
+				return;
+			}
+			hammerFpss.animFrame++;
+			if (hammerFpss.animFrame == 0)
+            {
+				fpss.gameObject.SetActive(true);
+				hammerFpss.gameObject.SetActive(false);
+            }
+			delay = 0;
 		}
 	}
 
@@ -272,9 +300,6 @@ public class BaldiScript : MonoBehaviour
 	// Token: 0x04000696 RID: 1686
 	public AudioClip[] speech;
 
-	// Token: 0x04000697 RID: 1687
-	public Animator baldiAnimator;
-
 	// Token: 0x04000698 RID: 1688
 	public float coolDown;
 
@@ -292,4 +317,8 @@ public class BaldiScript : MonoBehaviour
 	float bangTime; //like, with the hammer y'know???
 
 	public bool stunned;
+
+	public FirstPrizeSpriteScript fpss, hammerFpss;
+
+	int delay;
 }
