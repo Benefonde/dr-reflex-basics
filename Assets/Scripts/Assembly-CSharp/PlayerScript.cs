@@ -130,9 +130,9 @@ public class PlayerScript : MonoBehaviour
 			{
 				this.stamina -= this.staminaRate * Time.deltaTime;
 			}
-			if (this.stamina < 0f & this.stamina > -5f)
+			if (this.stamina < 0f & this.stamina > -0.01f)
 			{
-				this.stamina = -5f;
+				this.stamina = -0.01f;
 			}
 		}
 		else if (this.stamina < this.maxStamina)
@@ -145,7 +145,7 @@ public class PlayerScript : MonoBehaviour
 	// Token: 0x060009D8 RID: 2520 RVA: 0x000262F0 File Offset: 0x000246F0
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.transform.name == "Baldi" & !this.gc.debugMode)
+		if (other.transform.name == "Baldi" & !this.gc.debugMode && !baldi.stunned)
 		{
 			this.gameOver = true;
 			RenderSettings.skybox = this.blackSky; //Sets the skybox black

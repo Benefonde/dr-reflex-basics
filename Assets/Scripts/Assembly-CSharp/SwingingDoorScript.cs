@@ -14,7 +14,7 @@ public class SwingingDoorScript : MonoBehaviour
 	// Token: 0x06000946 RID: 2374 RVA: 0x00021490 File Offset: 0x0001F890
 	private void Update()
 	{
-		if (!this.requirementMet & this.gc.notebooks >= 2)
+		if (!this.requirementMet & this.gc.spoopMode)
 		{
 			this.requirementMet = true;
 			this.UnlockDoor();

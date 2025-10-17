@@ -38,6 +38,14 @@ public class FirstPrizeSpriteScript : MonoBehaviour
 			}
 		}
 		this.sprite.sprite = this.sprites[this.angle];
+		if (animationMode)
+		{
+			if (animFrame > animFrameLength - 1)
+            {
+				animFrame = 0;
+            }
+			this.sprite.sprite = this.sprites[animFrame + (animFrameLength * angle)]; // The script expects another script to increment "animFrame"
+		}
 	}
 
 	// Token: 0x040006B1 RID: 1713
@@ -60,8 +68,9 @@ public class FirstPrizeSpriteScript : MonoBehaviour
 
 	// Token: 0x040006B7 RID: 1719
 	public Sprite[] sprites = new Sprite[16];
+	public int animFrame, animFrameLength;
 
-	public bool eightAngles;
+	public bool eightAngles, animationMode;
 
 	public float offset;
 }

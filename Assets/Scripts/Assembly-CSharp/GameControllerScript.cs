@@ -225,8 +225,7 @@ public class GameControllerScript : MonoBehaviour
 		this.entrance_1.Lower();
 		this.entrance_2.Lower();
 		this.entrance_3.Lower();
-		this.baldiTutor.SetActive(false); //Turns off Baldi(The one that you see at the start of the game)
-		this.baldi.SetActive(true); //Turns on Baldi
+		baldiTutor.GetComponent<TutorBaldiScript>().GetAngry(); //Anger friendly Baldi
         this.principal.SetActive(true); //Turns on Principal
         this.crafters.SetActive(true); //Turns on Crafters
         this.playtime.SetActive(true); //Turns on Playtime

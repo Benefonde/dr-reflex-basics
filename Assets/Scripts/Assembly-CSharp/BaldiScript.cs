@@ -24,7 +24,7 @@ public class BaldiScript : MonoBehaviour
 		Move();
 		if (this.coolDown > 0f) //If coolDown is greater then 0, decrease it
 		{
-			this.coolDown -= 1f * Time.deltaTime;
+			this.coolDown -= 3f * Time.deltaTime;
 		}
 		if (this.baldiTempAnger > 0f) //Slowly decrease Baldi's temporary anger over time.
 		{
@@ -42,6 +42,25 @@ public class BaldiScript : MonoBehaviour
 		{
 			this.antiHearing = false;
 		}
+		if (bangTime > 0)
+        {
+			bangTime -= Time.deltaTime;
+        }
+        else
+        {
+			baldiAnimator.SetTrigger("slap");
+			baldiAudio.PlayOneShot(slap);
+			float time = 4f / ((baldiAnger * 0.6f) - baldiTempAnger);
+			if (time > 5)
+            {
+				time = 5;
+            }
+			if (time < 0.2f)
+            {
+				time = 0.2f;
+            }
+			bangTime = UnityEngine.Random.Range(time / 10, time);
+        }
 		if (this.endless) //Only activate if the player is playing on endless mode
 		{
 			if (this.timeToAnger > 0f) //Decrease the timeToAnger
@@ -55,19 +74,19 @@ public class BaldiScript : MonoBehaviour
 				this.angerRate += this.angerRateRate; //Increase angerRate for next time
 			}
 		}
-
-		if (resetAnger)
+#if UNITY_EDITOR
+		if (Input.GetKeyDown(KeyCode.F2))
         {
-			GetAngry(0);
-			resetAnger = false;
+			Stun(1);
         }
+#endif
 	}
 
 	// Token: 0x060009A5 RID: 2469 RVA: 0x000246F8 File Offset: 0x00022AF8
 	private void FixedUpdate()
 	{
 		float angleDifference = Mathf.DeltaAngle(base.transform.eulerAngles.y, Mathf.Atan2(player.position.x - base.transform.position.x, player.position.z - base.transform.position.z) * 57.29578f);
-		print(angleDifference);
+		//print(angleDifference);
 		if (angleDifference < 100 && angleDifference > -100)
 		{
 			Vector3 direction = player.position - transform.position;
@@ -117,7 +136,12 @@ public class BaldiScript : MonoBehaviour
 			baldiWait -= Time.deltaTime;
 			return;
 		}
-		speed = 8 + (baldiAnger * (baldiAnger * baldiSpeedScale)) + baldiTempAnger * 3;
+		if (stunned)
+        {
+			stunned = false;
+			GetComponentInChildren<SpriteRenderer>().color = Color.white;
+		}
+		speed = 8 + ((baldiAnger * (baldiAnger * baldiSpeedScale)) / 1.5f) + baldiTempAnger * 3;
 		agent.speed = speed;
 		if (base.transform.position == this.previous & this.coolDown < 0f) // If Baldi reached his destination, start wandering
 		{
@@ -163,11 +187,17 @@ public class BaldiScript : MonoBehaviour
 	public void Stun(float time, float angerRollBack = 0)
     {
 		baldiAudio.PlayOneShot(boink);
+		bangTime += time;
+		stunned = true;
+		GetComponentInChildren<SpriteRenderer>().color = Color.white - (Color.black * 0.25f);
 		if (baldiWait <= 0)
         {
 			baldiAudio.PlayOneShot(whoops);
-        }
-		baldiWait += time;
+		}
+		GetComponentInChildren<SpriteRenderer>().color = Color.white - (Color.black * 0.35f);
+		baldiWait += time; 
+		baldiAnger -= angerRollBack;
+		angerRate -= angerRateRate * angerRollBack;
     }
 
 	// Token: 0x0400067F RID: 1663
@@ -258,4 +288,8 @@ public class BaldiScript : MonoBehaviour
 	private NavMeshAgent agent;
 
 	public bool resetAnger;
+
+	float bangTime; //like, with the hammer y'know???
+
+	public bool stunned;
 }

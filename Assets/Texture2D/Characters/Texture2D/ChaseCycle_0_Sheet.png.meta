@@ -1,7 +1,22 @@
 fileFormatVersion: 2
 guid: bec7872fb10225446a1b3cd765c94ae4
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -5295756901946884045
+    second: ChaseCycle_0_Sheet_0
+  - first:
+      213: -4109421340405380901
+    second: ChaseCycle_0_Sheet_1
+  - first:
+      213: -4144901071804560369
+    second: ChaseCycle_0_Sheet_2
+  - first:
+      213: -4726073391657314008
+    second: ChaseCycle_0_Sheet_3
+  - first:
+      213: 772224060185400241
+    second: ChaseCycle_0_Sheet_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -97,11 +112,116 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: ChaseCycle_0_Sheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 512
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33002a2e721b186b0800000000000000
+      internalID: -5295756901946884045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaseCycle_0_Sheet_1
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 512
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd84ab4401768f6c0800000000000000
+      internalID: -4109421340405380901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaseCycle_0_Sheet_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0c04f19f6a5a76c0800000000000000
+      internalID: -4144901071804560369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaseCycle_0_Sheet_3
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 256
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82917d34a4d996eb0800000000000000
+      internalID: -4726073391657314008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ChaseCycle_0_Sheet_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 256
+        height: 256
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b35c5af0bd77ba00800000000000000
+      internalID: 772224060185400241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 298ad5dc8e930c644bec275084c88bf2
     internalID: 0
     vertices: []
     indices: 
