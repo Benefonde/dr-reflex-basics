@@ -48,7 +48,6 @@ public class BaldiScript : MonoBehaviour
         }
         else
 		{
-			delay = 0;
 			fpss.gameObject.SetActive(false);
 			hammerFpss.gameObject.SetActive(true);
 			baldiAudio.PlayOneShot(slap);
@@ -112,29 +111,29 @@ public class BaldiScript : MonoBehaviour
 		}
 
 		if (fpss.isActiveAndEnabled)
-        {
-			if (delay <= 2)
-            {
-				delay++;
-				return;
-            }
-			fpss.animFrame++;
-			delay = 0;
-        }
-        else
 		{
-			if (delay <= 2)
+			if (delay <= 1)
 			{
 				delay++;
 				return;
 			}
+			delay = 0;
+			fpss.animFrame++;
+        }
+        else
+		{
+			if (delay <= 1)
+            {
+				delay++;
+				return;
+            }
+			delay = 0;
 			hammerFpss.animFrame++;
-			if (hammerFpss.animFrame == 0)
+			if (hammerFpss.animFrame == hammerFpss.animFrameLength)
             {
 				fpss.gameObject.SetActive(true);
 				hammerFpss.gameObject.SetActive(false);
             }
-			delay = 0;
 		}
 	}
 
