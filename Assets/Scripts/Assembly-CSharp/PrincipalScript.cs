@@ -18,7 +18,14 @@ public class PrincipalScript : MonoBehaviour
 	{
 		if (this.seesRuleBreak)
 		{
-			this.timeSeenRuleBreak += 1f * Time.deltaTime;
+			if (playerScript.guiltType == "running")
+			{
+				this.timeSeenRuleBreak += 0.65f * Time.deltaTime;
+			}
+            else
+			{
+				this.timeSeenRuleBreak += 4f * Time.deltaTime;
+			}
 			if ((double)this.timeSeenRuleBreak >= 0.5 & !this.angry) // If the principal sees the player break a rule for more then 1/2 of a second
 			{
 				this.angry = true;

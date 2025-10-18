@@ -56,7 +56,7 @@ public class SwingingDoorScript : MonoBehaviour
 	{
 		if (!(this.gc.notebooks < 2 & other.tag == "Player"))
 		{
-			if (!this.bDoorLocked)
+			if (!this.bDoorLocked && !bDoorOpen)
 			{
 				this.myAudio.PlayOneShot(this.doorOpen, 1f);
 				if (other.tag == "Player" && this.baldi.isActiveAndEnabled)

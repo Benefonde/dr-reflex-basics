@@ -115,7 +115,18 @@ public class PlayerScript : MonoBehaviour
 			}
 			else if (this.jumpRope)
 			{
-				this.moveDirection = new Vector3(0f, 0f, 0f);
+				if (cam.jumpHeight > 0)
+				{
+					this.moveDirection /= 12;
+				}
+                else
+                {
+					moveDirection = Vector3.zero;
+                }
+				if (moveDirection != Vector3.zero)
+                {
+					frozenPosition = transform.position;
+                }
 			}
 		}
 		this.cc.Move(this.moveDirection);
@@ -147,9 +158,21 @@ public class PlayerScript : MonoBehaviour
 	{
 		if (other.transform.name == "Baldi" & !this.gc.debugMode && !baldi.stunned)
 		{
-			this.gameOver = true;
-			RenderSettings.skybox = this.blackSky; //Sets the skybox black
-			base.StartCoroutine(this.KeepTheHudOff()); //Hides the Hud
+			for (int i = 0; i < 3; i++)
+            {
+				if (gc.item[i] == 11)
+                {
+					baldi.Stun(20, 1);
+					gc.LoseItem(i);
+					break;
+                }
+            }
+			if (!baldi.stunned)
+			{
+				this.gameOver = true;
+				RenderSettings.skybox = this.blackSky; //Sets the skybox black
+				base.StartCoroutine(this.KeepTheHudOff()); //Hides the Hud
+			}
 		}
 		else if (other.transform.name == "Playtime" & !this.jumpRope & this.playtime.playCool <= 0f)
 		{
@@ -268,6 +291,8 @@ public class PlayerScript : MonoBehaviour
 
 	// Token: 0x040006EC RID: 1772
 	public PlaytimeScript playtime;
+
+	public CameraScript cam;
 
 	// Token: 0x040006ED RID: 1773
 	public bool gameOver;

@@ -15,7 +15,7 @@ public class DoorScript : MonoBehaviour
 	{
 		if (this.lockTime > 0f) // If the lock time is greater then 0, decrease lockTime
 		{
-			this.lockTime -= 1f * Time.deltaTime;
+			this.lockTime -= 1.25f * Time.deltaTime;
 		}
 		else if (this.bDoorLocked) //If the door is locked, unlock it
 		{

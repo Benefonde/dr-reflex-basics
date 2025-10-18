@@ -364,6 +364,10 @@ public class GameControllerScript : MonoBehaviour
         {
 			quarterCount = 0;
         }
+		if (quarterCount > 3)
+        {
+			quarterCount = 3;
+        }
 		UpdateItemName();
     }
 
@@ -586,7 +590,6 @@ public class GameControllerScript : MonoBehaviour
 		}
 		if (exitsReached == 2) //Play a sound
 		{
-			audioDevice.volume = 0.8f;
 			audioDevice.clip = aud_MachineStart;
 			audioDevice.loop = true;
 			audioDevice.Play();
