@@ -70,6 +70,11 @@ public class PickupScript : MonoBehaviour
 					raycastHit.transform.gameObject.SetActive(false);
 					this.gc.CollectItem(10);
 				}
+				else if (raycastHit.transform.name == "Pickup_Apple" & Vector3.Distance(this.player.position, base.transform.position) < 10f)
+				{
+					raycastHit.transform.gameObject.SetActive(false);
+					this.gc.CollectItem(11);
+				}
 			}
 		}
 	}

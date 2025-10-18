@@ -1,0 +1,13 @@
+# Created with Anim8or 1.01 Build 1.01.1403
+# Object "object02":
+
+newmtl material05
+Kd 1 1 1
+Ks 1 1 1
+Ns 752.6
+
+newmtl material01
+Kd 0.455 0.455 0.455
+Ks 1 1 1
+Ns 752.6
+
