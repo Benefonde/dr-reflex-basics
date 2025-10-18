@@ -31,7 +31,7 @@ public class NotebookScript : MonoBehaviour
 				this.audioDevice.Play();
 			}
 		}
-		if (Input.GetMouseButtonDown(0) && Time.timeScale != 0f)
+		if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E)) && Time.timeScale != 0f)
 		{
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3((float)(Screen.width / 2), (float)(Screen.height / 2), 0f));
 			RaycastHit raycastHit;

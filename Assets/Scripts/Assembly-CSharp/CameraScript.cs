@@ -20,14 +20,14 @@ public class CameraScript : MonoBehaviour
 			if (this.jumpHeight <= 0f) //When the player is on the floor, prevent the player from falling through.
 			{
 				this.jumpHeight = 0f;
-				if (Input.GetKeyDown(KeyCode.Space))
+				if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E)))
 				{
 					this.velocity = this.initVelocity; //Start the jump
 				}
 			}
-			this.jumpHeightV3 = new Vector3(0f, this.jumpHeight, 0f); //Turn the float into a vector
+			this.jumpHeightV3 = jumpHeight * Vector3.up; //Turn the float into a vector
 		}
-		else if (Input.GetButton("Look Behind"))
+		if (Input.GetButton("Look Behind"))
 		{
 			this.lookBehind = 180; //Look behind you
 		}

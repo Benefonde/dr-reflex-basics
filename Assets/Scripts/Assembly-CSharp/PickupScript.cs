@@ -14,7 +14,7 @@ public class PickupScript : MonoBehaviour
 	// Token: 0x060009CA RID: 2506 RVA: 0x00025604 File Offset: 0x00023A04
 	private void Update()
 	{
-		if (Input.GetMouseButtonDown(0) && Time.timeScale != 0f)
+		if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E)) && Time.timeScale != 0f)
 		{
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3((float)(Screen.width / 2), (float)(Screen.height / 2), 0f));
 			RaycastHit raycastHit;

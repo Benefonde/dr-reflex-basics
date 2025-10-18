@@ -37,7 +37,7 @@ public class DoorScript : MonoBehaviour
 				this.myAudio.PlayOneShot(this.doorClose, 1f); //Play the door close sound
 			}
 		}
-		if (Input.GetMouseButtonDown(0) && Time.timeScale != 0f) //If the door is left clicked and the game isn't paused
+		if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E)) && Time.timeScale != 0f) //If the door is left clicked and the game isn't paused
 		{
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3((float)(Screen.width / 2), (float)(Screen.height / 2), 0f));
 			RaycastHit raycastHit;
