@@ -38,12 +38,12 @@ public class TutorBaldiScript : MonoBehaviour
     {
         if (anger)
         {
-            if (delay <= 1)
+            if (delay > 0)
             {
-                delay++;
+                delay -= Time.deltaTime;
                 return;
             }
-            delay = 0;
+            delay = 1/48;
             fpss.animFrame += runItBack;
             if (fpss.animFrame <= 0 && runItBack == -1)
             {
@@ -79,6 +79,6 @@ public class TutorBaldiScript : MonoBehaviour
     public Transform baldi;
     public FirstPrizeSpriteScript disableOnAngerFpss, fpss;
 
-    int delay;
+    float delay;
     sbyte runItBack;
 }
