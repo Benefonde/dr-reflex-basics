@@ -25,6 +25,10 @@ public class GameControllerScript : MonoBehaviour
 		if (mode == "endless") //If it is endless mode
 		{
 			baldiScrpt.endless = true; //Set Baldi use his slightly changed endless anger system
+			for (int i = 0; i < endlessMachines.Length; i++)
+			{
+				endlessMachines[i].SetActive(true);
+			}
 		}
 		schoolMusic.Play(); //Play the school music
 		LockMouse(); //Prevent the mouse from moving
@@ -851,6 +855,8 @@ public class GameControllerScript : MonoBehaviour
 
 	// Token: 0x04000639 RID: 1593
 	public AudioSource learnMusic;
+
+	public GameObject[] endlessMachines;
 
 	// Token: 0x0400063A RID: 1594
 	//private Player playerInput;
