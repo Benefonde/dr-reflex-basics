@@ -62,7 +62,11 @@ public class GameControllerScript : MonoBehaviour
 			{
 				Time.timeScale = 1f;
 			}
-			if (Input.GetMouseButtonDown(1) && Time.timeScale != 0f)
+			if ((Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0)) && quarterCount > 0)
+            {
+				QuarterCheck();
+			}
+			if ((Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Q)) && Time.timeScale != 0f)
 			{
 				UseItem();
 			}
@@ -143,7 +147,7 @@ public class GameControllerScript : MonoBehaviour
 	// Token: 0x06000966 RID: 2406 RVA: 0x00021F8C File Offset: 0x0002038C
 	private void UpdateNotebookCount()
 	{
-		if (mode == "story")
+		if (mode == "story" && notebooks != 6) // fuck you
 		{
 			notebookCount.text = notebooks.ToString() + "/7 Notebooks";
 		}
@@ -371,6 +375,30 @@ public class GameControllerScript : MonoBehaviour
 		UpdateItemName();
     }
 
+	void QuarterCheck()
+    {
+		Ray ray3 = Camera.main.ScreenPointToRay(new Vector3((float)(Screen.width / 2), (float)(Screen.height / 2), 0f));
+		RaycastHit raycastHit3;
+		if (Physics.Raycast(ray3, out raycastHit3))
+		{
+			if (raycastHit3.collider.name == "BSODAMachine" & Vector3.Distance(playerTransform.position, raycastHit3.transform.position) <= 10f)
+			{
+				AddQuarter(-1);
+				CollectItem(4);
+			}
+			else if (raycastHit3.collider.name == "ZestyMachine" & Vector3.Distance(playerTransform.position, raycastHit3.transform.position) <= 10f)
+			{
+				AddQuarter(-1);
+				CollectItem(1);
+			}
+			else if (raycastHit3.collider.name == "PayPhone" & Vector3.Distance(playerTransform.position, raycastHit3.transform.position) <= 10f)
+			{
+				raycastHit3.collider.gameObject.GetComponent<TapePlayerScript>().Play();
+				AddQuarter(-1);
+			}
+		}
+	}
+
 	// Token: 0x06000976 RID: 2422 RVA: 0x00022528 File Offset: 0x00020928
 	private void UseItem()
 	{
@@ -415,26 +443,7 @@ public class GameControllerScript : MonoBehaviour
 			}
 			else if (item[itemSelected] == 5)
 			{
-				Ray ray3 = Camera.main.ScreenPointToRay(new Vector3((float)(Screen.width / 2), (float)(Screen.height / 2), 0f));
-				RaycastHit raycastHit3;
-				if (Physics.Raycast(ray3, out raycastHit3))
-				{
-					if (raycastHit3.collider.name == "BSODAMachine" & Vector3.Distance(playerTransform.position, raycastHit3.transform.position) <= 10f)
-					{
-						ResetItem();
-						CollectItem(4);
-					}
-					else if (raycastHit3.collider.name == "ZestyMachine" & Vector3.Distance(playerTransform.position, raycastHit3.transform.position) <= 10f)
-					{
-						ResetItem();
-						CollectItem(1);
-					}
-					else if (raycastHit3.collider.name == "PayPhone" & Vector3.Distance(playerTransform.position, raycastHit3.transform.position) <= 10f)
-					{
-						raycastHit3.collider.gameObject.GetComponent<TapePlayerScript>().Play();
-						ResetItem();
-					}
-				}
+				// replaced with QuarterCheck()
 			}
 			else if (item[itemSelected] == 6)
 			{

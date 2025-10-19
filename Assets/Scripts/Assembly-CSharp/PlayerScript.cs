@@ -150,7 +150,14 @@ public class PlayerScript : MonoBehaviour
 		{
 			this.stamina += this.staminaRate * Time.deltaTime;
 		}
-		this.staminaBar.value = this.stamina / this.maxStamina * 100f;
+		if (stamina > maxStamina)
+        {
+			staminaBar.value = (Mathf.Ceil(((stamina - 100) * 0.07f) * 2) / 2) + 100;
+        }
+        else
+		{
+			this.staminaBar.value = Mathf.Round(this.stamina / this.maxStamina * 100f);
+		}
 	}
 
 	// Token: 0x060009D8 RID: 2520 RVA: 0x000262F0 File Offset: 0x000246F0
