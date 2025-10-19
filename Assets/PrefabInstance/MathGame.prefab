@@ -286,6 +286,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: c737c4403e815be4a98c8614d1569ba0, type: 3}
   - {fileID: 8300000, guid: 678003a38843c154aa675c31502fc4eb, type: 3}
   - {fileID: 8300000, guid: 34b6fa5f9c127c9458ba54fd56904cc0, type: 3}
+  right: {fileID: 8300000, guid: 186f257940af1ca4593082c40acb57b5, type: 3}
+  wrong: {fileID: 8300000, guid: 36840fd11e44ee448a2b39ebff95acd3, type: 3}
   firstButton: {fileID: 2850002685283198220}
   baldiAudio: {fileID: 7668425779979872277}
 --- !u!82 &82212521532976993
@@ -501,7 +503,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 7283950447983371598}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -792,7 +794,7 @@ MonoBehaviour:
   m_text: 'Prove your reflexes to me!
 
 
-    Hit the circle three times to win!'
+    Hit the circle four times to win!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 837ae14c80fa2384eaa0c65d47c785f8, type: 2}
   m_sharedMaterial: {fileID: 4754190708415839793, guid: 837ae14c80fa2384eaa0c65d47c785f8,
@@ -1302,7 +1304,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 469505114955947174}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:

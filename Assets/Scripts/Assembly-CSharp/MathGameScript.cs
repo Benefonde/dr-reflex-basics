@@ -15,6 +15,11 @@ public class MathGameScript : MonoBehaviour
         circle.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
         cross.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
         baldiFeed.SetTrigger("idle");
+        if (gc.spoopMode)
+        {
+            string[] meanStart = { "MAYBE YOU CAN FINALLY PROVE ME WRONG. TEST YOUR REFLEXES.", "I SHOULD STOP BOTHERING WITH THIS. YOUR REFLEXES ARE WITH NO HOPE.", "TEST YOUR REFLEXES ALREADY." };
+            questionText.text = meanStart[UnityEngine.Random.Range(0, meanStart.Length)];
+        }
         StartCoroutine(ThiinkFast());
     }
 
@@ -28,8 +33,9 @@ public class MathGameScript : MonoBehaviour
             {
                 thinkFastChucklenuts -= Time.unscaledDeltaTime;
             }
-            else if (waitingForHit)
+            if (waitingForHit && thinkFastChucklenuts <= 0)
             {
+                print("WrongyWrongWrong");
                 CheckAnswer(false);
             }
             if (this.endDelay <= 0f)
@@ -46,7 +52,7 @@ public class MathGameScript : MonoBehaviour
 
     IEnumerator ThiinkFast()
     {
-        if (problem < 3)
+        if (problem < 4)
         {
             baldiAudio.pitch = UnityEngine.Random.Range(1f, 2f);
             baldiAudio.Play();
@@ -58,12 +64,16 @@ public class MathGameScript : MonoBehaviour
     // Token: 0x06000984 RID: 2436 RVA: 0x00023350 File Offset: 0x00021750
     private void NewProblem()
     {
+        if (questionText.text.Contains("reflexes"))
+        {
+            questionText.text = string.Empty;
+        }
         side = UnityEngine.Random.Range(0, 2);
         circle.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
         cross.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
         waitingForHit = true;
         this.problem++;
-        if (this.problem <= 3)
+        if (this.problem <= 4)
         {
             baldiAudio.PlayOneShot(fast);
             thinkFastChucklenuts = 2 / ((gc.notebooks + 4) / 4);
@@ -96,16 +106,16 @@ public class MathGameScript : MonoBehaviour
             this.endDelay = 5f;
             if (!this.gc.spoopMode)
             {
-                this.questionText.text = "I knew you could do it!";
+                this.questionText.text = "I knew you could do it! Come to me, I have a reward for you.";
             }
             else if (this.gc.mode == "endless" & this.problemsWrong <= 0)
             {
                 int num = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 1f));
                 this.questionText.text = this.endlessHintText[num];
             }
-            else if (this.gc.mode == "story" & this.problemsWrong >= 3)
+            else if (this.gc.mode == "story" & this.problemsWrong >= 4)
             {
-                this.questionText.text = "WE'RE GONNA HAVE A LOT MORE TESTS LATER";
+                this.questionText.text = "WE'RE GONNA HAVE A LOT MORE TESTS LATER, JUST YOU WAIT";
                 if (this.baldiScript.isActiveAndEnabled) this.baldiScript.Hear(this.playerPosition, 7f);
                 this.gc.failedNotebooks++;
             }
@@ -124,7 +134,24 @@ public class MathGameScript : MonoBehaviour
         baldiFeed.SetTrigger("idle");
         circle.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
         cross.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
-        if (this.problem <= 3)
+        if (correct)
+        {
+            GetComponent<AudioSource>().PlayOneShot(right);
+            if (gc.spoopMode)
+            {
+                questionText.text += "\nCORRECT.";
+            }
+            else
+            {
+                questionText.text += "\nThat's correct!";
+            }
+        }
+        else
+        {
+            GetComponent<AudioSource>().PlayOneShot(wrong);
+            questionText.text += "\nWRONG.";
+        }
+        if (this.problem <= 4)
         {
             if (correct & !this.impossibleMode)
             {
@@ -149,7 +176,7 @@ public class MathGameScript : MonoBehaviour
                     }
                     else
                     {
-                        this.baldiScript.GetTempAngry(0.25f);
+                        this.baldiScript.GetTempAngry(0.2f);
                     }
                 }
                 else
@@ -213,6 +240,8 @@ public class MathGameScript : MonoBehaviour
 
     // Token: 0x04000657 RID: 1623
     public AudioClip[] bal_praises = new AudioClip[5];
+
+    public AudioClip right, wrong;
 
     // Token: 0x04000659 RID: 1625
     public Button firstButton;
