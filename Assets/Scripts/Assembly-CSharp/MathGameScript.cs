@@ -26,7 +26,7 @@ public class MathGameScript : MonoBehaviour
     // Token: 0x06000983 RID: 2435 RVA: 0x00023270 File Offset: 0x00021670
     private void Update()
     {
-        if (this.problem > 3)
+        if (this.problem > 4)
         {
             this.endDelay -= 1f * Time.unscaledDeltaTime;
             if (thinkFastChucklenuts > 0)
@@ -104,6 +104,7 @@ public class MathGameScript : MonoBehaviour
         else
         {
             this.endDelay = 5f;
+            questionText.lineSpacing = 0;
             if (!this.gc.spoopMode)
             {
                 this.questionText.text = "I knew you could do it! Come to me, I have a reward for you.";
@@ -134,6 +135,7 @@ public class MathGameScript : MonoBehaviour
         baldiFeed.SetTrigger("idle");
         circle.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
         cross.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
+        questionText.lineSpacing = -10;
         if (correct)
         {
             GetComponent<AudioSource>().PlayOneShot(right);
