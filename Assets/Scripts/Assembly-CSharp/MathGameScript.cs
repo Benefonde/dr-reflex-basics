@@ -11,6 +11,7 @@ public class MathGameScript : MonoBehaviour
     // Token: 0x06000982 RID: 2434 RVA: 0x000231E0 File Offset: 0x000215E0
     private void Start()
     {
+        learnMusic.pitch = 0.9f;
         this.gc.ActivateLearningGame();
         circle.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
         cross.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
@@ -26,17 +27,21 @@ public class MathGameScript : MonoBehaviour
     // Token: 0x06000983 RID: 2435 RVA: 0x00023270 File Offset: 0x00021670
     private void Update()
     {
+        if (thinkFastChucklenuts > 0)
+        {
+            thinkFastChucklenuts -= Time.unscaledDeltaTime;
+        }
+        if (waitingForHit && thinkFastChucklenuts <= 0)
+        {
+            print("WrongyWrongWrong");
+            CheckAnswer(false);
+        }
         if (this.problem > 4)
         {
             this.endDelay -= 1f * Time.unscaledDeltaTime;
-            if (thinkFastChucklenuts > 0)
+            if (endDelay <= 2 && !endTextDone)
             {
-                thinkFastChucklenuts -= Time.unscaledDeltaTime;
-            }
-            if (waitingForHit && thinkFastChucklenuts <= 0)
-            {
-                print("WrongyWrongWrong");
-                CheckAnswer(false);
+                EndQuestionText();
             }
             if (this.endDelay <= 0f)
             {
@@ -77,7 +82,7 @@ public class MathGameScript : MonoBehaviour
         {
             baldiAudio.PlayOneShot(fast);
             thinkFastChucklenuts = 2 / ((gc.notebooks + 4) / 4);
-            if ((this.gc.mode == "story" & (this.problem <= 2 || this.gc.notebooks <= 1)) || (this.gc.mode == "endless" & (this.problem <= 2 || this.gc.notebooks != 2)))
+            if ((this.gc.mode == "story" & (this.problem <= 3 || this.gc.notebooks <= 1)) || (this.gc.mode == "endless" & (this.problem <= 3 || this.gc.notebooks != 2)))
             {
                 if (this.side == 0)
                 {
@@ -95,7 +100,7 @@ public class MathGameScript : MonoBehaviour
             else
             {
                 cross.GetComponent<RectTransform>().anchoredPosition = new Vector2(70, -120);
-                cross2 = Instantiate(cross, transform.GetChild(2));
+                cross2 = Instantiate(cross, cross.transform.parent);
                 cross2.GetComponent<RectTransform>().anchoredPosition = new Vector2(180, -120);
                 baldiFeed.SetTrigger("uhm");
                 // What the foack!
@@ -103,34 +108,40 @@ public class MathGameScript : MonoBehaviour
         }
         else
         {
-            this.endDelay = 5f;
-            questionText.lineSpacing = 0;
-            if (!this.gc.spoopMode)
-            {
-                this.questionText.text = "I knew you could do it! Come to me, I have a reward for you.";
-            }
-            else if (this.gc.mode == "endless" & this.problemsWrong <= 0)
-            {
-                int num = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 1f));
-                this.questionText.text = this.endlessHintText[num];
-            }
-            else if (this.gc.mode == "story" & this.problemsWrong >= 4)
-            {
-                this.questionText.text = "WE'RE GONNA HAVE A LOT MORE TESTS LATER, JUST YOU WAIT";
-                if (this.baldiScript.isActiveAndEnabled) this.baldiScript.Hear(this.playerPosition, 7f);
-                this.gc.failedNotebooks++;
-            }
-            else
-            {
-                int num2 = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 1f));
-                this.questionText.text = this.hintText[num2];
-            }
+            this.endDelay = 3f;
+        }
+    }
+
+    void EndQuestionText()
+    {
+        endTextDone = true;
+        questionText.lineSpacing = 0;
+        if (!this.gc.spoopMode)
+        {
+            this.questionText.text = "I knew you could do it! Come to me, I have a reward for you.";
+        }
+        else if (this.gc.mode == "endless" & this.problemsWrong <= 0)
+        {
+            int num = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 1f));
+            this.questionText.text = this.endlessHintText[num];
+        }
+        else if (this.gc.mode == "story" & this.problemsWrong >= 4)
+        {
+            this.questionText.text = "WE'RE GONNA HAVE A LOT MORE TESTS LATER, JUST YOU WAIT";
+            if (this.baldiScript.isActiveAndEnabled) this.baldiScript.Hear(this.playerPosition, 7f);
+            this.gc.failedNotebooks++;
+        }
+        else
+        {
+            int num2 = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 1f));
+            this.questionText.text = this.hintText[num2];
         }
     }
 
     // Token: 0x06000986 RID: 2438 RVA: 0x00023BC0 File Offset: 0x00021FC0
     public void CheckAnswer(bool correct)
     {
+        learnMusic.pitch += 0.1f;
         thinkFastChucklenuts = 30;
         waitingForHit = false;
         baldiFeed.SetTrigger("idle");
@@ -173,7 +184,7 @@ public class MathGameScript : MonoBehaviour
                 }
                 if (this.gc.mode == "story")
                 {
-                    if (this.problem == 3)
+                    if (this.problem == 4)
                     {
                         this.baldiScript.GetAngry(1f);
                     }
@@ -273,11 +284,11 @@ public class MathGameScript : MonoBehaviour
     };
 
     // Token: 0x04000665 RID: 1637
-    private bool impossibleMode, waitingForHit;
+    private bool impossibleMode, waitingForHit, endTextDone;
 
     // Token: 0x04000667 RID: 1639
     private int problemsWrong;
 
     // Token: 0x04000669 RID: 1641
-    public AudioSource baldiAudio;
+    public AudioSource baldiAudio, learnMusic;
 }
