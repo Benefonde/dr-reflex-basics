@@ -18,7 +18,7 @@ public class MathGameScript : MonoBehaviour
         baldiFeed.SetTrigger("idle");
         if (gc.spoopMode)
         {
-            string[] meanStart = { "MAYBE YOU CAN FINALLY PROVE ME WRONG. TEST YOUR REFLEXES.", "I SHOULD STOP BOTHERING WITH THIS. YOUR REFLEXES ARE WITH NO HOPE.", "TEST YOUR REFLEXES ALREADY." };
+            string[] meanStart = { "MAYBE YOU CAN FINALLY PROVE ME WRONG. TEST YOUR REFLEXES.", "I SHOULD STOP BOTHERING WITH THIS. YOUR REFLEXES ARE WITH NO HOPE.", "JUST TEST YOUR REFLEXES ALREADY." };
             questionText.text = meanStart[UnityEngine.Random.Range(0, meanStart.Length)];
         }
         StartCoroutine(ThiinkFast());
@@ -57,6 +57,14 @@ public class MathGameScript : MonoBehaviour
 
     IEnumerator ThiinkFast()
     {
+        if (problem == 0)
+        {
+            yield return new WaitForSecondsRealtime(0.5f - (gc.notebooks / 14));
+            if (gc.notebooks == 1)
+            {
+                yield return new WaitForSecondsRealtime(1);
+            }
+        }
         if (problem < 4)
         {
             baldiAudio.pitch = UnityEngine.Random.Range(1f, 2f);
@@ -69,7 +77,7 @@ public class MathGameScript : MonoBehaviour
     // Token: 0x06000984 RID: 2436 RVA: 0x00023350 File Offset: 0x00021750
     private void NewProblem()
     {
-        if (questionText.text.Contains("reflexes"))
+        if (questionText.text.ToLower().Contains("reflexes"))
         {
             questionText.text = string.Empty;
         }
@@ -141,7 +149,7 @@ public class MathGameScript : MonoBehaviour
     // Token: 0x06000986 RID: 2438 RVA: 0x00023BC0 File Offset: 0x00021FC0
     public void CheckAnswer(bool correct)
     {
-        learnMusic.pitch += 0.1f;
+        learnMusic.pitch += 0.05f;
         thinkFastChucklenuts = 30;
         waitingForHit = false;
         baldiFeed.SetTrigger("idle");
@@ -162,6 +170,11 @@ public class MathGameScript : MonoBehaviour
         }
         else
         {
+            if (learnMusic.isPlaying)
+            {
+                learnMusic.Stop();
+            }
+            baldiFeed.gameObject.GetComponent<Image>().color = Color.red;
             GetComponent<AudioSource>().PlayOneShot(wrong);
             questionText.text += "\nWRONG.";
         }

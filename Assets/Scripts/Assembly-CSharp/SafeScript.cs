@@ -7,7 +7,7 @@ public class SafeScript : MonoBehaviour
 {
     void Update()
     {
-		if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E)) && Time.timeScale != 0f)
+		if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E)) && Time.timeScale != 0f && quarterAmount != maxQuarters)
 		{
             if (gc.quarterCount <= 0)
             {
@@ -21,7 +21,7 @@ public class SafeScript : MonoBehaviour
                 gc.AddQuarter(-1);
                 if (quarterAmount == maxQuarters)
                 {
-                    OpenTheDoor();
+                    StartCoroutine(OpenTheDoor());
                     quarterCounter.gameObject.SetActive(false);
                 }
                 quarterCounter.text = $"{quarterAmount}/{maxQuarters}";
@@ -29,10 +29,14 @@ public class SafeScript : MonoBehaviour
 		}
 	}
 
-    void OpenTheDoor()
+    IEnumerator OpenTheDoor()
     {
-        door.SetActive(false);
+        safeDoor.SetTrigger("OPEN NOW");
+        yield return new WaitForSeconds(0.65f);
         apple.SetActive(true);
+        GetComponent<AudioSource>().Play();
+        yield return new WaitForSeconds(4.45f);
+        door.SetActive(false);
     }
 
     byte maxQuarters = 3;
@@ -42,4 +46,6 @@ public class SafeScript : MonoBehaviour
     public Transform player;
     public GameObject door, apple;
     public GameControllerScript gc;
+
+    public Animator safeDoor;
 }

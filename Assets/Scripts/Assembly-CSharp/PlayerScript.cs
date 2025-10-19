@@ -117,7 +117,7 @@ public class PlayerScript : MonoBehaviour
 			{
 				if (cam.jumpHeight > 0)
 				{
-					this.moveDirection /= 12;
+					this.moveDirection /= 6;
 				}
                 else
                 {
@@ -135,7 +135,7 @@ public class PlayerScript : MonoBehaviour
 	// Token: 0x060009D7 RID: 2519 RVA: 0x00026210 File Offset: 0x00024610
 	private void StaminaCheck()
 	{
-		if (this.cc.velocity.magnitude > 0.1f)
+		if (this.cc.velocity.magnitude > 0.1f && !hugging)
 		{
 			if (Input.GetButton("Run") & this.stamina > 0f)
 			{
