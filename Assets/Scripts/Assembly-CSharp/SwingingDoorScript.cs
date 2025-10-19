@@ -8,17 +8,12 @@ public class SwingingDoorScript : MonoBehaviour
 	private void Start()
 	{
 		this.myAudio = base.GetComponent<AudioSource>();
-		this.bDoorLocked = true;
+		UnlockDoor();
 	}
 
 	// Token: 0x06000946 RID: 2374 RVA: 0x00021490 File Offset: 0x0001F890
 	private void Update()
 	{
-		if (!this.requirementMet & this.gc.spoopMode)
-		{
-			this.requirementMet = true;
-			this.UnlockDoor();
-		}
 		if (this.openTime > 0f)
 		{
 			this.openTime -= 1f * Time.deltaTime;
@@ -27,7 +22,7 @@ public class SwingingDoorScript : MonoBehaviour
 		{
 			this.lockTime -= Time.deltaTime;
 		}
-		else if (this.bDoorLocked & this.requirementMet)
+		else if (this.bDoorLocked)
 		{
 			this.UnlockDoor();
 		}
@@ -54,15 +49,12 @@ public class SwingingDoorScript : MonoBehaviour
 	// Token: 0x06000948 RID: 2376 RVA: 0x000215D8 File Offset: 0x0001F9D8
 	private void OnTriggerEnter(Collider other)
 	{
-		if (!(this.gc.notebooks < 2 & other.tag == "Player"))
+		if (!this.bDoorLocked)
 		{
-			if (!this.bDoorLocked && !bDoorOpen)
+			this.myAudio.PlayOneShot(this.doorOpen, 1f);
+			if (other.tag == "Player" && this.baldi.isActiveAndEnabled && !bDoorOpen)
 			{
-				this.myAudio.PlayOneShot(this.doorOpen, 1f);
-				if (other.tag == "Player" && this.baldi.isActiveAndEnabled)
-				{
-					this.baldi.Hear(base.transform.position, 1f);
-				}
+				this.baldi.Hear(base.transform.position, 1f);
 			}
 		}
 	}

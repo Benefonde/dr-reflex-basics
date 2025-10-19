@@ -62,6 +62,10 @@ public class GameControllerScript : MonoBehaviour
 			{
 				Time.timeScale = 1f;
 			}
+			if (Vector3.Distance(tutorBaldi.transform.position, playerTransform.position) >= 70 && !spoopMode)
+            {
+				ActivateSpoopMode();
+            }
 			if ((Input.GetKeyDown(KeyCode.E) || Input.GetMouseButtonDown(0)) && quarterCount > 0)
             {
 				QuarterCheck();

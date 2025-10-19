@@ -43,15 +43,18 @@ public class DoorScript : MonoBehaviour
 			RaycastHit raycastHit;
 			if (Physics.Raycast(ray, out raycastHit) && (raycastHit.collider == this.trigger & Vector3.Distance(this.player.position, base.transform.position) < this.openingDistance & !this.bDoorLocked))
 			{
-				if (this.baldi.isActiveAndEnabled & this.silentOpens <= 0)
+				if (!bDoorOpen)
 				{
-					this.baldi.Hear(base.transform.position, 1f); //If the door isn't silent, Baldi hears the door with a priority of 1.
+					if (this.baldi.isActiveAndEnabled & this.silentOpens <= 0)
+					{
+						this.baldi.Hear(base.transform.position, 1f); //If the door isn't silent, Baldi hears the door with a priority of 1.
+					}
+					if (this.silentOpens > 0) //If the door is silent
+					{
+						this.silentOpens--; //Decrease the amount of opens the door will stay quite for.
+					}
 				}
 				this.OpenDoor();
-				if (this.silentOpens > 0) //If the door is silent
-				{
-					this.silentOpens--; //Decrease the amount of opens the door will stay quite for.
-				}
 			}
 		}
 	}
