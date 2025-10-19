@@ -15,7 +15,7 @@ public class SafeScript : MonoBehaviour
             }
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3((float)(Screen.width / 2), (float)(Screen.height / 2), 0f));
 			RaycastHit raycastHit;
-			if (Physics.Raycast(ray, out raycastHit) && (Vector3.Distance(this.player.position, base.transform.position) < 17.5f))
+			if (Physics.Raycast(ray, out raycastHit) && raycastHit.transform.name == "Safe" && (Vector3.Distance(this.player.position, base.transform.position) < 17.5f))
 			{
                 quarterAmount++;
                 gc.AddQuarter(-1);

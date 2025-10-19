@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Token: 0x020000B1 RID: 177
 public class Script : MonoBehaviour
@@ -14,7 +15,7 @@ public class Script : MonoBehaviour
 	{
 		if (!this.audioDevice.isPlaying & this.played)
 		{
-			Application.Quit();
+			SceneManager.LoadScene("MainMenu");
 		}
 	}
 
@@ -25,6 +26,7 @@ public class Script : MonoBehaviour
 		{
 			this.audioDevice.Play();
 			this.played = true;
+			GetComponent<Animator>().SetTrigger("Hi");
 		}
 	}
 

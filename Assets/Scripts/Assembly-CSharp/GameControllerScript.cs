@@ -368,9 +368,9 @@ public class GameControllerScript : MonoBehaviour
         {
 			quarterCount = 0;
         }
-		if (quarterCount > 3)
+		if (quarterCount > 4)
         {
-			quarterCount = 3;
+			quarterCount = 4;
         }
 		UpdateItemName();
     }
@@ -558,7 +558,7 @@ public class GameControllerScript : MonoBehaviour
 	private void UpdateItemName()
 	{
 		itemText.text = itemNames[item[itemSelected]];
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 4; i++)
 		{
 			quarterSlot[i].gameObject.SetActive(false);
 		}
@@ -569,7 +569,7 @@ public class GameControllerScript : MonoBehaviour
 		if (quarterCount > 0)
         {
 			quarterCounter.text = quarterCount.ToString();
-			if (quarterCount >= 3)
+			if (quarterCount >= 4)
             {
 				quarterCounter.color = Color.red;
             }
