@@ -131,6 +131,7 @@ public class MathGameScript : MonoBehaviour
     // Token: 0x06000986 RID: 2438 RVA: 0x00023BC0 File Offset: 0x00021FC0
     public void CheckAnswer(bool correct)
     {
+        thinkFastChucklenuts = 30;
         waitingForHit = false;
         baldiFeed.SetTrigger("idle");
         circle.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
