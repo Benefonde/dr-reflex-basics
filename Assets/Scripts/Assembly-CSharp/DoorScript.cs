@@ -41,8 +41,13 @@ public class DoorScript : MonoBehaviour
 		{
 			Ray ray = Camera.main.ScreenPointToRay(new Vector3((float)(Screen.width / 2), (float)(Screen.height / 2), 0f));
 			RaycastHit raycastHit;
-			if (Physics.Raycast(ray, out raycastHit) && (raycastHit.collider == this.trigger & Vector3.Distance(this.player.position, base.transform.position) < this.openingDistance & !this.bDoorLocked))
+			if (Physics.Raycast(ray, out raycastHit) && (raycastHit.collider == this.trigger & Vector3.Distance(this.player.position, base.transform.position) < this.openingDistance))
 			{
+				if (bDoorLocked)
+                {
+					myAudio.PlayOneShot(doorLocked);
+					return;
+                }
 				if (!bDoorOpen)
 				{
 					if (this.baldi.isActiveAndEnabled & this.silentOpens <= 0)
@@ -87,12 +92,14 @@ public class DoorScript : MonoBehaviour
 	public void LockDoor(float time) //Lock the door for a specified amount of time
 	{
 		this.bDoorLocked = true;
+		myAudio.PlayOneShot(doorLock);
 		this.lockTime = time;
 	}
 
 	// Token: 0x0600093F RID: 2367 RVA: 0x00021414 File Offset: 0x0001F814
 	public void UnlockDoor() //Unlock the door
 	{
+		myAudio.PlayOneShot(doorUnlock);
 		this.bDoorLocked = false;
 	}
 
@@ -136,10 +143,10 @@ public class DoorScript : MonoBehaviour
 	public MeshRenderer outside;
 
 	// Token: 0x040005CB RID: 1483
-	public AudioClip doorOpen;
+	public AudioClip doorOpen, doorUnlock;
 
 	// Token: 0x040005CC RID: 1484
-	public AudioClip doorClose;
+	public AudioClip doorClose, doorLock, doorLocked;
 
 	// Token: 0x040005CD RID: 1485
 	public Material closed;
