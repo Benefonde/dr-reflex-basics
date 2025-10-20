@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -304,6 +306,11 @@ public class GameControllerScript : MonoBehaviour
 		{
 			audioDevice.PlayOneShot(aud_AllNotebooks, 0.8f);
 		}
+		if (baldiScrpt.isActiveAndEnabled && queuedStuns > 0)
+		{
+			baldiScrpt.Stun(queuedStuns);
+			queuedStuns = 0;
+		}
 	}
 
 	// Token: 0x06000972 RID: 2418 RVA: 0x00022360 File Offset: 0x00020760
@@ -399,12 +406,31 @@ public class GameControllerScript : MonoBehaviour
 				AddQuarter(-1);
 				CollectItem(1);
 			}
+			else if (raycastHit3.collider.name == "CrazyMachine" & Vector3.Distance(playerTransform.position, raycastHit3.transform.position) <= 10f)
+			{
+				AddQuarter(-1);
+				CollectItem(ExcludeItem(5));
+			}
+			else if (raycastHit3.collider.name == "AmazingMachine" & Vector3.Distance(playerTransform.position, raycastHit3.transform.position) <= 10f)
+			{
+				AddQuarter(-1);
+				CollectItem(ExcludeItem(3, 5, 7, 6, 8, 10));
+			}
 			else if (raycastHit3.collider.name == "PayPhone" & Vector3.Distance(playerTransform.position, raycastHit3.transform.position) <= 10f)
 			{
 				raycastHit3.collider.gameObject.GetComponent<TapePlayerScript>().Play();
 				AddQuarter(-1);
 			}
 		}
+	}
+	public int ExcludeItem(params int[] exclusions)
+	{
+		System.Random random = new System.Random();
+
+		List<int> validNumbers = Enumerable.Range(1, itemTextures.Length - 1).Except(exclusions).ToList();
+
+		int randomIndex = random.Next(validNumbers.Count);
+		return validNumbers[randomIndex];
 	}
 
 	// Token: 0x06000976 RID: 2422 RVA: 0x00022528 File Offset: 0x00020928
@@ -857,6 +883,8 @@ public class GameControllerScript : MonoBehaviour
 	public AudioSource learnMusic;
 
 	public GameObject[] endlessMachines;
+
+	public float queuedStuns;
 
 	// Token: 0x0400063A RID: 1594
 	//private Player playerInput;

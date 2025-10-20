@@ -8,12 +8,48 @@ public class QuarterSpawnScript : MonoBehaviour
 	private void Start()
 	{
 		this.wanderer.QuarterExclusive();
+		if (!Manager)
+        {
+			GetComponent<AudioSource>().Play();
+			QuarterCloseCheck();
+        }
 		base.transform.position = this.location.position + Vector3.up * 4f;
+	}
+
+	void QuarterCloseCheck()
+    {
+		Vector3 pos = location.position + Vector3.up * 4f;
+		Collider[] colliders = Physics.OverlapSphere(pos, 0.5f);
+		while (colliders.Length > 0)
+		{
+			foreach (Collider collider in colliders)
+            {
+				if (collider.gameObject.GetComponent<QuarterSpawnScript>() == null)
+                {
+					break;
+                }
+            }
+			print("ok fun we have others TIME TO MIGRATEe");
+			this.wanderer.QuarterExclusive();
+			pos = location.position + Vector3.up * 4f;
+			colliders = Physics.OverlapSphere(pos, 0.5f);
+		}
+		transform.position = pos;
 	}
 
 	// Token: 0x06000070 RID: 112 RVA: 0x00003D41 File Offset: 0x00002141
 	private void Update()
 	{
+		if (gc.mode == "endless" && gc.spoopMode && Manager)
+        {
+			waitTime -= Time.deltaTime;
+			if (waitTime <= 0 && FindObjectsOfType<QuarterSpawnScript>().Length < 12) //10 bonus quarters only
+            {
+				waitTime = 160 + (FindObjectsOfType<QuarterSpawnScript>().Length * 5);
+				QuarterSpawnScript quarter = Instantiate(gameObject, transform.parent).GetComponent<QuarterSpawnScript>();
+				quarter.Manager = false;
+            }
+        }
 	}
 
 	// Token: 0x0400008C RID: 140
@@ -21,4 +57,10 @@ public class QuarterSpawnScript : MonoBehaviour
 
 	// Token: 0x0400008D RID: 141
 	public Transform location;
+
+	public GameControllerScript gc;
+
+	public bool Manager; //there should only be 1 quarter with this bool
+
+	float waitTime = 160;
 }

@@ -55,7 +55,7 @@ public class BaldiScript : MonoBehaviour
 			fpss.gameObject.SetActive(false);
 			hammerFpss.gameObject.SetActive(true);
 			baldiAudio.PlayOneShot(slap);
-			float time = 4f / ((baldiAnger * 0.6f) - baldiTempAnger);
+			float time = 4f / ((baldiAnger * 0.5f) - baldiTempAnger);
 			if (time > 5)
             {
 				time = 5;

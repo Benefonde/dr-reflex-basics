@@ -44,6 +44,14 @@ public class PickupScript : MonoBehaviour
 				{
 					raycastHit.transform.gameObject.SetActive(false);
 					this.gc.CollectItem(5);
+					if (GetComponent<QuarterSpawnScript>() == null)
+                    {
+						return;
+                    }
+					if (!GetComponent<QuarterSpawnScript>().Manager)
+					{
+						Destroy(gameObject);
+					}
 				}
 				else if (raycastHit.transform.name == "Pickup_Tape" & Vector3.Distance(this.player.position, base.transform.position) < 10f)
 				{

@@ -47,10 +47,6 @@ public class MathGameScript : MonoBehaviour
             {
                 GC.Collect();
                 this.ExitGame();
-                if (baldiScript.endless && problemsWrong <= 0)
-                {
-                    baldiScript.Stun(0.2f * gc.notebooks, 0.01f * (gc.notebooks^2));
-                }
             }
         }
     }
@@ -90,6 +86,10 @@ public class MathGameScript : MonoBehaviour
         {
             baldiAudio.PlayOneShot(fast);
             thinkFastChucklenuts = 2 / ((gc.notebooks + 4) / 4);
+            if (thinkFastChucklenuts < 0.65f)
+            {
+                thinkFastChucklenuts = 0.65f;
+            }
             if ((this.gc.mode == "story" & (this.problem <= 3 || this.gc.notebooks <= 1)) || (this.gc.mode == "endless" & (this.problem <= 3 || this.gc.notebooks != 2)))
             {
                 if (this.side == 0)
@@ -221,6 +221,14 @@ public class MathGameScript : MonoBehaviour
         if (this.problemsWrong <= 0 & this.gc.mode == "endless")
         {
             this.baldiScript.GetAngry(-1f);
+            if (baldiScript.isActiveAndEnabled)
+            {
+                baldiScript.Stun(0.2f * gc.notebooks, 0.01f * (gc.notebooks ^ 2));
+            }
+            else
+            {
+                gc.queuedStuns += 0.2f * gc.notebooks;
+            }
         }
         this.gc.DeactivateLearningGame(base.gameObject);
     }

@@ -32,10 +32,10 @@ public class SafeScript : MonoBehaviour
     IEnumerator OpenTheDoor()
     {
         safeDoor.SetTrigger("OPEN NOW");
-        yield return new WaitForSeconds(0.65f);
+        yield return new WaitForSeconds(0.35f);
         apple.SetActive(true);
         GetComponent<AudioSource>().Play();
-        yield return new WaitForSeconds(4.45f);
+        yield return new WaitForSeconds(4.65f);
         door.SetActive(false);
     }
 
