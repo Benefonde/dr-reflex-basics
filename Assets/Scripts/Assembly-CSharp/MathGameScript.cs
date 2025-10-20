@@ -85,10 +85,10 @@ public class MathGameScript : MonoBehaviour
         if (this.problem <= 4)
         {
             baldiAudio.PlayOneShot(fast);
-            thinkFastChucklenuts = 2 / ((gc.notebooks + 4) / 4);
-            if (thinkFastChucklenuts < 0.65f)
+            thinkFastChucklenuts = 2 / ((gc.notebooks + 3) / 4);
+            if (thinkFastChucklenuts < 0.75f)
             {
-                thinkFastChucklenuts = 0.65f;
+                thinkFastChucklenuts = 0.75f;
             }
             if ((this.gc.mode == "story" & (this.problem <= 3 || this.gc.notebooks <= 1)) || (this.gc.mode == "endless" & (this.problem <= 3 || this.gc.notebooks != 2)))
             {
