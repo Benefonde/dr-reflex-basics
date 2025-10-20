@@ -43,6 +43,15 @@ public class BaldiScript : MonoBehaviour
 		{
 			this.antiHearing = false;
 		}
+		if (baldiTalkTimer > 0)
+        {
+			baldiTalkTimer -= Time.deltaTime; 
+        }
+        else
+        {
+			baldiAudio.PlayOneShot(speech[UnityEngine.Random.Range(0, speech.Length)]);
+			baldiTalkTimer = UnityEngine.Random.Range(10, 30);
+        }
 		if (bangTime > 0)
         {
 			bangTime -= Time.deltaTime;
@@ -326,6 +335,8 @@ public class BaldiScript : MonoBehaviour
 
 	// Token: 0x0400069A RID: 1690
 	private bool rumble;
+
+	float baldiTalkTimer;
 
 	// Token: 0x0400069B RID: 1691
 	private NavMeshAgent agent;
