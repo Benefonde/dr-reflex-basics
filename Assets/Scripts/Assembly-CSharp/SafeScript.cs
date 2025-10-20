@@ -39,7 +39,7 @@ public class SafeScript : MonoBehaviour
         door.SetActive(false);
     }
 
-    byte maxQuarters = 3;
+    byte maxQuarters = 5;
     byte quarterAmount;
     public TMP_Text quarterCounter;
 
