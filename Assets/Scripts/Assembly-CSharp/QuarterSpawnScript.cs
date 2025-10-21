@@ -46,7 +46,7 @@ public class QuarterSpawnScript : MonoBehaviour
 			waitTime -= Time.deltaTime;
 			if (waitTime <= 0 && FindObjectsOfType<QuarterSpawnScript>().Length < 12) //10 bonus quarters only
             {
-				waitTime = 90 + (FindObjectsOfType<QuarterSpawnScript>().Length * 5);
+				waitTime = 75 + (FindObjectsOfType<QuarterSpawnScript>().Length * 5);
 				QuarterSpawnScript quarter = Instantiate(gameObject, transform.parent).GetComponent<QuarterSpawnScript>();
 				quarter.Manager = false;
             }

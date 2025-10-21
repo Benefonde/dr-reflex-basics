@@ -29,7 +29,7 @@ public class BaldiScript : MonoBehaviour
 		}
 		if (this.baldiTempAnger > 0f) //Slowly decrease Baldi's temporary anger over time.
 		{
-			this.baldiTempAnger -= 0.02f * Time.deltaTime;
+			this.baldiTempAnger -= 0.045f * Time.deltaTime;
 		}
 		else
 		{

@@ -54,7 +54,7 @@ public class CameraScript : MonoBehaviour
 		else if (this.ps.jumpRope)
 		{
 			base.transform.position = this.player.transform.position + this.offset + this.jumpHeightV3; //Apply the jump rope vector onto the normal offset
-			base.transform.rotation = this.player.transform.rotation; //Rotate based on player direction
+			base.transform.rotation = this.player.transform.rotation * Quaternion.Euler(0f, (float)this.lookBehind, 0f); //Rotate based on player direction
 		}
 	}
 

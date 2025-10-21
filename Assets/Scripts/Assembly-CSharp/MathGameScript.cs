@@ -12,6 +12,10 @@ public class MathGameScript : MonoBehaviour
     private void Start()
     {
         learnMusic.pitch = 0.9f;
+        if (gc.spoopMode)
+        {
+            learnMusic.pitch -= 0.65f;
+        }
         this.gc.ActivateLearningGame();
         circle.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
         cross.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
@@ -80,15 +84,15 @@ public class MathGameScript : MonoBehaviour
         side = UnityEngine.Random.Range(0, 2);
         circle.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
         cross.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
-        waitingForHit = true;
         this.problem++;
         if (this.problem <= 4)
         {
             baldiAudio.PlayOneShot(fast);
+            waitingForHit = true;
             thinkFastChucklenuts = 2 / ((gc.notebooks + 3) / 4);
-            if (thinkFastChucklenuts < 0.75f)
+            if (thinkFastChucklenuts < 0.95f)
             {
-                thinkFastChucklenuts = 0.75f;
+                thinkFastChucklenuts = 0.95f;
             }
             if ((this.gc.mode == "story" & (this.problem <= 3 || this.gc.notebooks <= 1)) || (this.gc.mode == "endless" & (this.problem <= 3 || this.gc.notebooks != 2)))
             {
@@ -203,12 +207,12 @@ public class MathGameScript : MonoBehaviour
                     }
                     else
                     {
-                        this.baldiScript.GetTempAngry(0.2f);
+                        this.baldiScript.GetTempAngry(0.15f);
                     }
                 }
                 else
                 {
-                    this.baldiScript.GetAngry(1f);
+                    this.baldiScript.GetAngry(0.8f);
                 }
                 StartCoroutine(ThiinkFast());
             }
