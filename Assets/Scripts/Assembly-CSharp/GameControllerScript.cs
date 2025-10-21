@@ -414,7 +414,7 @@ public class GameControllerScript : MonoBehaviour
 			else if (raycastHit3.collider.name == "AmazingMachine" & Vector3.Distance(playerTransform.position, raycastHit3.transform.position) <= 10f)
 			{
 				AddQuarter(-1);
-				CollectItem(ExcludeItem(3, 5, 7, 6, 8, 10));
+				CollectItem(ExcludeItem(2, 3, 5, 7, 6, 8, 10));
 			}
 			else if (raycastHit3.collider.name == "PayPhone" & Vector3.Distance(playerTransform.position, raycastHit3.transform.position) <= 10f)
 			{

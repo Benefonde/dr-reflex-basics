@@ -5,6 +5,11 @@ using TMPro;
 
 public class SafeScript : MonoBehaviour
 {
+    void Start()
+    {
+        quarterCounter.text = $"{quarterAmount}/{maxQuarters}";
+    }
+
     void Update()
     {
 		if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.E)) && Time.timeScale != 0f && quarterAmount != maxQuarters)
@@ -37,9 +42,16 @@ public class SafeScript : MonoBehaviour
         GetComponent<AudioSource>().Play();
         yield return new WaitForSeconds(4.65f);
         door.SetActive(false);
+        if (gc.mode == "endless")
+        {
+            yield return new WaitForSeconds(180);
+            door.SetActive(true);
+            safeDoor.StopPlayback();
+            maxQuarters++;
+        }
     }
 
-    byte maxQuarters = 5;
+    byte maxQuarters = 4;
     byte quarterAmount;
     public TMP_Text quarterCounter;
 

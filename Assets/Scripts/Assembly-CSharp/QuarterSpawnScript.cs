@@ -10,6 +10,7 @@ public class QuarterSpawnScript : MonoBehaviour
 		this.wanderer.QuarterExclusive();
 		if (!Manager)
         {
+			transform.name = "Pickup_Quarter";
 			GetComponent<AudioSource>().Play();
 			QuarterCloseCheck();
         }
@@ -62,5 +63,6 @@ public class QuarterSpawnScript : MonoBehaviour
 
 	public bool Manager; //there should only be 1 quarter with this bool
 
-	float waitTime = 160;
+	[SerializeField]
+	float waitTime = 90;
 }

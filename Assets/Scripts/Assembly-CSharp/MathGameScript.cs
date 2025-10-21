@@ -223,11 +223,11 @@ public class MathGameScript : MonoBehaviour
             this.baldiScript.GetAngry(-1f);
             if (baldiScript.isActiveAndEnabled)
             {
-                baldiScript.Stun(0.2f * gc.notebooks, 0.01f * (gc.notebooks ^ 2));
+                baldiScript.Stun(0.35f * gc.notebooks, 0.14f * (gc.notebooks * 4));
             }
             else
             {
-                gc.queuedStuns += 0.2f * gc.notebooks;
+                gc.queuedStuns += 0.35f * gc.notebooks;
             }
         }
         this.gc.DeactivateLearningGame(base.gameObject);
