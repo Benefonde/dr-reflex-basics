@@ -28,6 +28,8 @@ public class PrincipalScript : MonoBehaviour
 			}
 			if ((double)this.timeSeenRuleBreak >= 0.5 & !this.angry) // If the principal sees the player break a rule for more then 1/2 of a second
 			{
+				audioQueue.ClearAudioQueue();
+				audioDevice.Stop();
 				this.angry = true;
 				this.seesRuleBreak = false;
 				this.timeSeenRuleBreak = 0f;
