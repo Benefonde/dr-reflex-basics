@@ -7,7 +7,7 @@ public class BenefondCratesSoCoolBro : MonoBehaviour
     {
         if (Random.Range(1, 21) == 2)
         {
-            benefondCreatesAud.clip = benefondCratesEasterEggs[Random.Range(0, benefondCratesEasterEggs.Length )];
+            benefondCreatesAud.clip = benefondCratesEasterEggs[Random.Range(0, benefondCratesEasterEggs.Length)];
         }
         benefondCreatesAud.Play();
         Invoke(nameof(SendToGame), 3.333f);

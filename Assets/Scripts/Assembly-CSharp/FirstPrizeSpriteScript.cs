@@ -45,6 +45,10 @@ public class FirstPrizeSpriteScript : MonoBehaviour
 				animFrame = 0;
             }
 			this.sprite.sprite = this.sprites[(animFrame + (animFrameLength * angle)) + animOffset]; // The script expects another script to increment "animFrame"
+			if (transform.name == "BaldiBang")
+			{
+				print($"angular {angle}, frame {animFrame}/{animFrameLength}");
+			}
 		}
 	}
 

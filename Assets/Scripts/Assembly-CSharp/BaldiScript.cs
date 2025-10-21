@@ -132,16 +132,16 @@ public class BaldiScript : MonoBehaviour
 		if (hammerFpss.gameObject.activeSelf)
 		{
 			hammerFpss.animFrame += runItBack;
-			if (hammerFpss.animFrame >= hammerFpss.animFrameLength - 1 && runItBack == 1)
+			if (hammerFpss.animFrame >= hammerFpss.animFrameLength && runItBack == 1)
 			{
 				runItBack = -1;
 				hammerFpss.animFrame--;
 			}
-			if (hammerFpss.animFrame <= 0 && runItBack == -1)
+			if (hammerFpss.animFrame <= 1 && runItBack == -1)
 			{
 				runItBack = 1;
 				fpss.animFrame = 0;
-				hammerFpss.animFrame = 1;
+				hammerFpss.animFrame = 0;
 				fpss.gameObject.SetActive(true);
 				hammerFpss.gameObject.SetActive(false);
 			}
