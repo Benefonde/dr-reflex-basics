@@ -55,6 +55,10 @@ public class BaldiScript : MonoBehaviour
 		if (bangTime > 0)
         {
 			bangTime -= Time.deltaTime;
+			if (player.GetComponent<PlayerScript>().gameOver)
+            {
+				bangTime -= Time.unscaledDeltaTime;
+            }
         }
         else
 		{
@@ -74,7 +78,11 @@ public class BaldiScript : MonoBehaviour
 				time = 0.2f;
 			}
 			bangTime = UnityEngine.Random.Range(time / 10, time);
-        }
+			if (player.GetComponent<PlayerScript>().gameOver)
+            {
+				bangTime = 0.075f;	
+            }
+		}
 		if (this.endless) //Only activate if the player is playing on endless mode
 		{
 			if (this.timeToAnger > 0f) //Decrease the timeToAnger
@@ -101,6 +109,10 @@ public class BaldiScript : MonoBehaviour
 	{
 		if (animDelay > 0)
 		{
+			if (player.GetComponent<PlayerScript>().gameOver)
+			{
+				animDelay -= Time.unscaledDeltaTime;
+			}
 			animDelay -= Time.deltaTime;
 			return;
 		}
@@ -343,7 +355,7 @@ public class BaldiScript : MonoBehaviour
 
 	public bool resetAnger;
 
-	float bangTime; //like, with the hammer y'know???
+	public float bangTime; //like, with the hammer y'know???
 
 	public bool stunned;
 

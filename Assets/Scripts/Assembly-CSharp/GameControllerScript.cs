@@ -129,9 +129,9 @@ public class GameControllerScript : MonoBehaviour
 				highScoreText.SetActive(true);
 			}
 			Time.timeScale = 0f;
-			gameOverDelay -= Time.unscaledDeltaTime * 0.5f;
-			camera.farClipPlane = gameOverDelay * 400f; //Set camera farClip 
-			audioDevice.PlayOneShot(aud_buzz);
+			gameOverDelay -= Time.unscaledDeltaTime * 0.35f;
+			camera.farClipPlane = gameOverDelay * 800f; //Set camera farClip 
+			//audioDevice.PlayOneShot(aud_buzz);
 			if (gameOverDelay <= 0f)
 			{
 				if (mode == "endless")

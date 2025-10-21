@@ -48,8 +48,8 @@ public class CameraScript : MonoBehaviour
 		}
 		else if (this.ps.gameOver)
 		{
-			base.transform.position = this.baldi.transform.position + this.baldi.transform.forward * 2f + new Vector3(0f, 5f, 0f); //Puts the camera in front of Baldi
-			base.transform.LookAt(new Vector3(this.baldi.position.x, this.baldi.position.y + 5f, this.baldi.position.z)); //Makes the player look at baldi with an offset so the camera doesn't look at the feet
+			base.transform.position = this.baldi.transform.position + this.baldi.transform.forward * 3f + new Vector3(0f, 0.5f, 0f); //Puts the camera in front of Baldi
+			base.transform.LookAt(new Vector3(this.baldi.position.x, this.baldi.position.y + 0.5f, this.baldi.position.z)); //Makes the player look at baldi with an offset so the camera doesn't look at the feet
 		}
 		else if (this.ps.jumpRope)
 		{

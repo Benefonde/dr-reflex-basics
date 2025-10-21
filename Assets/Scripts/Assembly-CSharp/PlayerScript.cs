@@ -10,7 +10,6 @@ public class PlayerScript : MonoBehaviour
 	// Token: 0x060009D3 RID: 2515 RVA: 0x00025C74 File Offset: 0x00024074
 	private void Start()
 	{
-		//Yeah your on your own for this one
 		if (PlayerPrefs.GetInt("AnalogMove") == 1)
 		{
 			this.sensitivityActive = true;
@@ -177,6 +176,7 @@ public class PlayerScript : MonoBehaviour
 			if (!baldi.stunned)
 			{
 				this.gameOver = true;
+				gc.baldiScrpt.bangTime = 0;
 				RenderSettings.skybox = this.blackSky; //Sets the skybox black
 				base.StartCoroutine(this.KeepTheHudOff()); //Hides the Hud
 			}
