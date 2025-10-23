@@ -266,9 +266,12 @@ public class PlayerScript : MonoBehaviour
 	}
 
 	// Token: 0x060009DF RID: 2527 RVA: 0x0002651F File Offset: 0x0002491F
-	public void DeactivateJumpRope()
+	public void DeactivateJumpRope(bool sad = true)
 	{
-		gc.playtimeScript.Disappoint();
+		if (sad)
+		{
+			gc.playtimeScript.Disappoint();
+		}
 		this.jumpRopeScreen.SetActive(false);
 		this.jumpRope = false;
 	}

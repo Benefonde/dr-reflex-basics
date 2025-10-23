@@ -234,8 +234,12 @@ public class BaldiScript : MonoBehaviour
 	}
 
 	// Token: 0x060009AB RID: 2475 RVA: 0x000249A2 File Offset: 0x00022DA2
-	public void Hear(Vector3 soundLocation, float priority)
+	public void Hear(Vector3 soundLocation, float priority, bool forget = false)
 	{
+		if (forget)
+        {
+			currentPriority = 0; // Used for detention
+        }
 		if (!this.antiHearing && priority >= this.currentPriority) //If anti-hearing is not active and the priority is greater then the priority of the current sound
 		{
 			this.agent.SetDestination(soundLocation); //Go to that sound

@@ -69,7 +69,7 @@ public class JumpRopeScript : MonoBehaviour
 		{
 			this.playtime.audioDevice.Stop(); //Stop playtime from talking
 			this.playtime.audioDevice.PlayOneShot(this.playtime.aud_Congrats);
-			this.ps.DeactivateJumpRope(); //Deactivate the jumprope
+			this.ps.DeactivateJumpRope(false); //Deactivate the jumprope
 		}
 	}
 

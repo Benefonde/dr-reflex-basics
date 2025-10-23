@@ -513,7 +513,6 @@ public class GameControllerScript : MonoBehaviour
 				if (player.jumpRope)
 				{
 					player.DeactivateJumpRope();
-					playtimeScript.Disappoint();
 					ResetItem();
 				}
 				else if (Physics.Raycast(ray6, out raycastHit6) && raycastHit6.collider.name == "1st Prize")
