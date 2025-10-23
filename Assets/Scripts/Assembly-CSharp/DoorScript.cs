@@ -91,6 +91,10 @@ public class DoorScript : MonoBehaviour
 	// Token: 0x0600093E RID: 2366 RVA: 0x00021404 File Offset: 0x0001F804
 	public void LockDoor(float time) //Lock the door for a specified amount of time
 	{
+		if (bDoorOpen)
+        {
+			openTime = 1 / 99;
+        }
 		this.bDoorLocked = true;
 		myAudio.PlayOneShot(doorLock);
 		this.lockTime = time;

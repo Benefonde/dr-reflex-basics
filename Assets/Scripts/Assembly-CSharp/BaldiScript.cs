@@ -29,7 +29,7 @@ public class BaldiScript : MonoBehaviour
 		}
 		if (this.baldiTempAnger > 0f) //Slowly decrease Baldi's temporary anger over time.
 		{
-			this.baldiTempAnger -= 0.045f * Time.deltaTime;
+			this.baldiTempAnger -= 0.028f * Time.deltaTime;
 		}
 		else
 		{
@@ -80,7 +80,7 @@ public class BaldiScript : MonoBehaviour
 			bangTime = UnityEngine.Random.Range(time / 10, time);
 			if (player.GetComponent<PlayerScript>().gameOver)
             {
-				bangTime = 0.075f;	
+				bangTime = 0.0725f;	
             }
 		}
 		if (this.endless) //Only activate if the player is playing on endless mode
@@ -208,7 +208,7 @@ public class BaldiScript : MonoBehaviour
 			sprites[0].color = Color.white;
 			sprites[1].color = Color.white;
 		}
-		speed = 8 + ((baldiAnger * (baldiAnger * baldiSpeedScale)) / 1.5f) + baldiTempAnger * 3;
+		speed = (8 + ((baldiAnger * (baldiAnger * baldiSpeedScale)) / 1.5f) + baldiTempAnger * 3) / 1.028f;
 		agent.speed = speed;
 		if (base.transform.position == this.previous & this.coolDown < 0f) // If Baldi reached his destination, start wandering
 		{

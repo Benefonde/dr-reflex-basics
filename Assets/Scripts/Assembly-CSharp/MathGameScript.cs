@@ -199,7 +199,7 @@ public class MathGameScript : MonoBehaviour
                     this.baldiFeed.SetTrigger("angry");
                     this.gc.ActivateSpoopMode();
                 }
-                if (this.gc.mode == "story")
+                if (this.gc.mode != "endless")
                 {
                     if (this.problem == 4)
                     {
@@ -207,7 +207,7 @@ public class MathGameScript : MonoBehaviour
                     }
                     else
                     {
-                        this.baldiScript.GetTempAngry(0.15f);
+                        this.baldiScript.GetTempAngry(0.1f);
                     }
                 }
                 else
