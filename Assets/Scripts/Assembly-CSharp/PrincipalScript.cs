@@ -20,7 +20,7 @@ public class PrincipalScript : MonoBehaviour
 		{
 			if (playerScript.guiltType == "running")
 			{
-				this.timeSeenRuleBreak += 0.65f * Time.deltaTime;
+				this.timeSeenRuleBreak += 0.6f * Time.deltaTime;
 			}
             else
 			{
@@ -154,7 +154,7 @@ public class PrincipalScript : MonoBehaviour
 			this.audioQueue.QueueAudio(this.aud_Delay);
 			this.audioQueue.QueueAudio(this.audTimes[this.detentions]); //Play the detention time sound
 			this.audioQueue.QueueAudio(this.audDetention);
-			int num = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 2f));
+			int num = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 3f));
 			this.audioQueue.QueueAudio(this.audScolds[num]); // Say one of the other lines
 			this.officeDoor.LockDoor((float)this.lockTime[this.detentions]); // Lock the door
 			if (this.baldiScript.isActiveAndEnabled) this.baldiScript.Hear(base.transform.position, 8f);

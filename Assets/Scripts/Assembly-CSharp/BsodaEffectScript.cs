@@ -18,9 +18,9 @@ public class BsodaEffectScript : MonoBehaviour
 		{
 			this.agent.velocity = this.otherVelocity; //Set the agent's velocity to the velocity of the other object
 		}
-		if (this.failSave > 0f)
+		if (this.failSafe > 0f)
 		{
-			this.failSave -= Time.deltaTime;
+			this.failSafe -= Time.deltaTime;
 		}
 		else
 		{
@@ -35,13 +35,13 @@ public class BsodaEffectScript : MonoBehaviour
 		{
 			this.inBsoda = true;
 			this.otherVelocity = other.GetComponent<Rigidbody>().velocity; // Set the velocity to the velocity of the BSODA
-			this.failSave = 1f;
+			this.failSafe = 0.5f;
 		}
 		else if (other.transform.name == "Gotta Sweep") //If its Gotta Sweep
 		{
 			this.inBsoda = true;
-			this.otherVelocity = base.transform.forward * this.agent.speed * 0.1f + other.GetComponent<NavMeshAgent>().velocity;
-			this.failSave = 1f;
+			this.otherVelocity = base.transform.forward * this.agent.speed * 0.1f + (other.GetComponent<NavMeshAgent>().velocity * 0.95f);
+			this.failSafe = 0.5f;
 		}
 	}
 
@@ -61,5 +61,5 @@ public class BsodaEffectScript : MonoBehaviour
 	private bool inBsoda;
 
 	// Token: 0x04000011 RID: 17
-	private float failSave;
+	private float failSafe;
 }

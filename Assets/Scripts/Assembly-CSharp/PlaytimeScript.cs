@@ -38,7 +38,7 @@ public class PlaytimeScript : MonoBehaviour
 		{
 			Vector3 direction = this.player.position - base.transform.position;
 			RaycastHit raycastHit;
-			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 769, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player" & (base.transform.position - this.player.position).magnitude <= 80f & this.playCool <= 0f)
+			if (Physics.Raycast(base.transform.position, direction, out raycastHit, float.PositiveInfinity, 769, QueryTriggerInteraction.Ignore) & raycastHit.transform.tag == "Player" & (base.transform.position - this.player.position).magnitude <= 55f & this.playCool <= 0f)
 			{
 				this.playerSeen = true; //If playtime sees the player, she chases after them
 				this.TargetPlayer();
@@ -60,9 +60,9 @@ public class PlaytimeScript : MonoBehaviour
 			{
 				this.agent.Warp(base.transform.position - base.transform.forward * 10f); //Teleport back after touching the player
 			}
+			this.playCool = 15f;
 			this.jumpRopeStarted = true;
 			this.agent.speed = 0f;
-			this.playCool = 15f;
 		}
 	}
 

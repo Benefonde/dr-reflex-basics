@@ -34,10 +34,15 @@ public class PlayerScript : MonoBehaviour
 		{
 			this.gc.LockMouse();
 		}
-		if (this.jumpRope & (base.transform.position - this.frozenPosition).magnitude >= 1f) // If the player moves, deactivate the jumprope minigame
+		if (this.jumpRope) // If the player is out of sight, deactivate the jumprope minigame
 		{
-			this.DeactivateJumpRope();
-		}
+			Vector3 direction = this.transform.position - gc.playtime.transform.position;
+			Physics.Raycast(gc.playtime.transform.position, direction, out RaycastHit raycastHit, float.PositiveInfinity, 769, QueryTriggerInteraction.Ignore);
+			if (raycastHit.transform.tag != "Player" || (this.transform.position - gc.playtime.transform.position).magnitude > 55f)
+            {
+                this.DeactivateJumpRope();
+            }
+        }
 		if (this.sweepingFailsave > 0f)
 		{
 			this.sweepingFailsave -= Time.deltaTime;
@@ -106,7 +111,7 @@ public class PlayerScript : MonoBehaviour
 		{
 			if (this.sweeping && !this.bootsActive)
 			{
-				this.moveDirection = this.gottaSweep.velocity * Time.deltaTime + this.moveDirection * 0.3f;
+				this.moveDirection = (this.gottaSweep.velocity * 0.8f) * Time.deltaTime + this.moveDirection * 0.95f;
 			}
 			else if (this.hugging && !this.bootsActive)
 			{
@@ -263,6 +268,7 @@ public class PlayerScript : MonoBehaviour
 	// Token: 0x060009DF RID: 2527 RVA: 0x0002651F File Offset: 0x0002491F
 	public void DeactivateJumpRope()
 	{
+		gc.playtimeScript.Disappoint();
 		this.jumpRopeScreen.SetActive(false);
 		this.jumpRope = false;
 	}

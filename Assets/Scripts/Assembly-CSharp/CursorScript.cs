@@ -12,6 +12,10 @@ public class CursorScript : MonoBehaviour
     {
         Ray ray = Camera.main.ScreenPointToRay(new Vector3((float)(Screen.width / 2), (float)(Screen.height / 2), 0f));
         Physics.Raycast(ray, out RaycastHit raycastHit);
+        if (raycastHit.transform == null)
+        {
+            return;
+        }
         string a = raycastHit.transform.tag;
         if (Vector3.Distance(player.position, raycastHit.transform.position) > 10 && (a == "Notebook" || a == "Item"))
         {
