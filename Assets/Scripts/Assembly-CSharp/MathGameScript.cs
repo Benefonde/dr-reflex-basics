@@ -159,6 +159,10 @@ public class MathGameScript : MonoBehaviour
         baldiFeed.SetTrigger("idle");
         circle.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
         cross.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
+        if (cross2 != null)
+        {
+            cross2.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
+        }        
         questionText.lineSpacing = -12;
         if (correct)
         {
