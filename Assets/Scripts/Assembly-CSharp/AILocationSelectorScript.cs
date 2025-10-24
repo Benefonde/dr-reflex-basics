@@ -7,7 +7,7 @@ public class AILocationSelectorScript : MonoBehaviour
 	// Token: 0x0600099F RID: 2463 RVA: 0x00024478 File Offset: 0x00022878
 	public void GetNewTarget()
 	{
-		this.id = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 28f)); //Get a random number between 0 and 28
+		this.id = Mathf.RoundToInt(UnityEngine.Random.Range(0f, 30f)); //Get a random number between 0 and 30
 		base.transform.position = this.newLocation[this.id].position; //Set it's location to a position in a list of positions using the ID variable that just got set.
 		this.ambience.PlayAudio(); //Play an ambience audio
 	}
