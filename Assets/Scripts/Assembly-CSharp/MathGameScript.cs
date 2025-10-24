@@ -57,6 +57,8 @@ public class MathGameScript : MonoBehaviour
 
     IEnumerator ThiinkFast()
     {
+        circle.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
+        cross.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
         if (problem == 0)
         {
             yield return new WaitForSecondsRealtime(0.5f - (gc.notebooks / 14));
@@ -82,8 +84,6 @@ public class MathGameScript : MonoBehaviour
             questionText.text = string.Empty;
         }
         side = UnityEngine.Random.Range(0, 2);
-        circle.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
-        cross.GetComponent<RectTransform>().anchoredPosition = new Vector2(9999, -120);
         this.problem++;
         if (this.problem <= 4)
         {
