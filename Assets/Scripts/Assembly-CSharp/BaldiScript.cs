@@ -29,7 +29,7 @@ public class BaldiScript : MonoBehaviour
 		}
 		if (this.baldiTempAnger > 0f) //Slowly decrease Baldi's temporary anger over time.
 		{
-			this.baldiTempAnger -= 0.028f * Time.deltaTime;
+			this.baldiTempAnger -= 0.01f * Time.deltaTime;
 		}
 		else
 		{
@@ -208,7 +208,7 @@ public class BaldiScript : MonoBehaviour
 			sprites[0].color = Color.white;
 			sprites[1].color = Color.white;
 		}
-		speed = (8 + ((baldiAnger * (baldiAnger * baldiSpeedScale)) / 1.5f) + baldiTempAnger * 3) / 1.028f;
+		speed = Mathf.Round((8 + ((baldiAnger * (baldiAnger * baldiSpeedScale)) / 1.64f) + baldiTempAnger * 4.5f) * 4) / 4;
 		agent.speed = speed;
 		if (base.transform.position == this.previous & this.coolDown < 0f) // If Baldi reached his destination, start wandering
 		{
