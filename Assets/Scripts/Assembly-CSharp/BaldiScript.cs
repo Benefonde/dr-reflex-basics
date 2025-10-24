@@ -208,8 +208,8 @@ public class BaldiScript : MonoBehaviour
 			sprites[0].color = Color.white;
 			sprites[1].color = Color.white;
 		}
-		speed = Mathf.Round((8 + ((baldiAnger * (baldiAnger * baldiSpeedScale)) / 1.64f) + baldiTempAnger * 4.5f) * 4) / 4;
-		agent.speed = speed;
+		speed = (8 + ((baldiAnger * (baldiAnger * baldiSpeedScale)) / 1.64f) + baldiTempAnger * 4.5f);
+		agent.speed = Mathf.Round(speed * 4) / 4;
 		if (base.transform.position == this.previous & this.coolDown < 0f) // If Baldi reached his destination, start wandering
 		{
 			this.Wander();

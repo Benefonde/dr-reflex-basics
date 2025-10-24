@@ -251,6 +251,11 @@ public class GameControllerScript : MonoBehaviour
 	private void ActivateFinaleMode()
 	{
 		finaleMode = true;
+		if (failedNotebooks == notebooks)
+        {
+			baldiScrpt.GetAngry(1.5f);
+			baldiScrpt.GetTempAngry(0.25f);
+        }
 		entrance_0.Raise(); //Raise all the enterances(make them appear)
 		entrance_1.Raise();
 		entrance_2.Raise();
